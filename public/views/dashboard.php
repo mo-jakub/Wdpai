@@ -101,10 +101,10 @@
             <button>About Us</button>
             <button>Contact</button>
         </div>
-        <div class="social-media">
-            <a href="#">Twitter</a>
-            <a href="#">Facebook</a>
-            <a href="#">Discord</a>
+        <div class="nav-wrapper">
+            <a href="#" class="nav-link">Twitter</a>
+            <a href="#" class="nav-link">Facebook</a>
+            <a href="#" class="nav-link">Discord</a>
         </div>
     </div>
 </footer>

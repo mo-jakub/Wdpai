@@ -25,6 +25,10 @@ header, footer {
     top: 0;
 }
 
+main {
+    flex: 1;
+}
+
 .container {
     display: flex;
     justify-content: space-between;
@@ -96,10 +100,61 @@ footer {
     border-radius: 4px;
 }
 
-.social-media a {
+.auth-page {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 75rem;
+    margin: 0 auto;
+    padding: 20px;
+    gap: 2rem;
+}
+
+.login-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.login-info img {
+    max-width: 100%;
+    max-height: 300px;
+    margin-bottom: 20px;
+}
+
+.login-form {
+    flex: 1;
+    background-color: #333;
+    padding: 20px;
+    border-radius: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.login-form input {
+    border-radius: 1rem;
+}
+
+.login-form button {
+    background-color: #555;
     color: white;
-    margin-left: 10px;
-    text-decoration: none;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 1rem;
+}
+
+.onpage-logo {
+    max-width: 200px;
+    height: auto;
 }
 
 @media print {
