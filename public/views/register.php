@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Power Of Knowledge</title>
+    <title>Sign Up - Power Of Knowledge</title>
     <link rel="stylesheet" type="text/css" href="public/styles/style.css">
 </head>
 <body>
@@ -30,18 +30,21 @@
     </div>
 </header>
 
-<main class="login-page">
+<main class="signup-page">
     <div class="auth-page">
         <div class="auth-info">
             <img src="logo.png" alt="Logo" class="onpage-logo">
-            <h2>We're glad to have you back.</h2>
+            <h2>Join us now.</h2>
+            <p>So that you can share your thoughts regarding all the books and discuss them with others. It's free and easy.</p>
         </div>
         <div class="auth-form">
-            <h2>Log Into an Existing Account</h2>
-            <form action="login.php" method="post">
+            <h2>Create an Account</h2>
+            <form action="register.php" method="post">
+                <input type="text" name="username" placeholder="Username" required>
                 <input type="email" name="email" placeholder="Email" required>
                 <input type="password" name="password" placeholder="Password" required>
-                <button type="submit">Login</button>
+                <input type="password" name="confirm_password" placeholder="Repeat Password" required>
+                <button type="submit">Sign Up</button>
             </form>
         </div>
     </div>
