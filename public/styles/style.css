@@ -8,7 +8,7 @@ body {
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #3D4D9B;
+    background-color: #333851;
     color: white;
     display: flex;
     flex-direction: column;
@@ -36,10 +36,12 @@ main {
     max-width: 75rem;
     width: 100%;
     padding: 0 10px;
+    gap: 2rem;
 }
 
 .logo {
-    flex: 1;
+    max-height: 3rem;
+    width: auto;
 }
 
 .nav-wrapper {
@@ -53,6 +55,7 @@ main {
     font-size: 1rem;
     display: flex;
     align-items: center;
+    gap: 0.2rem;
 }
 
 .search-bar {
@@ -91,7 +94,7 @@ footer {
 }
 
 .footer-nav button {
-    background-color: #555;
+    background-color: #3D4D9B;
     color: white;
     border: none;
     padding: 10px;
@@ -126,7 +129,7 @@ footer {
 
 .auth-form {
     flex: 1;
-    background-color: #333;
+    background-color: #282A37;
     padding: 20px;
     border-radius: 1rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -143,7 +146,7 @@ footer {
 }
 
 .auth-form button {
-    background-color: #555;
+    background-color: #3D4D9B;
     color: white;
     border: none;
     padding: 10px;

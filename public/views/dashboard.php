@@ -9,12 +9,10 @@
 <body>
 <header>
     <div class="container">
-        <div class="logo">
-            <a href="/" class="nav-link">
-                <img src="placeholder1.jpg" alt="Logo">
-                Power of Knowledge
-            </a>
-        </div>
+        <a href="/" class="nav-link">
+            <img src="public/images/logo.svg" alt="Logo" class="logo">
+            Power of Knowledge
+        </a>
         <nav class="nav-wrapper">
             <a href="/" class="nav-link">Home</a>
             <a href="/" class="nav-link">Genre</a>
@@ -31,67 +29,64 @@
 </header>
 
 <main>
+<!-- <?php foreach($books as $book): ?>
+ 
+ <div class="card">
+     <img src="https://random.imagecdn.app/700/700">
+     <p>
+        <?= $book["name"]; ?>
+     </p>
+ </div>
+<?php endforeach; ?> -->
     <div class="books-grid">
-        <img src="placeholder1.jpg" alt="Book 1" class="book-placeholder">
-        <img src="placeholder2.jpg" alt="Book 2" class="book-placeholder">
-        <img src="placeholder3.jpg" alt="Book 3" class="book-placeholder">
-        <img src="placeholder4.jpg" alt="Book 4" class="book-placeholder">
-        <img src="placeholder5.jpg" alt="Book 5" class="book-placeholder">
-        <img src="placeholder6.jpg" alt="Book 6" class="book-placeholder">
-        <img src="placeholder7.jpg" alt="Book 7" class="book-placeholder">
-        <img src="placeholder8.jpg" alt="Book 8" class="book-placeholder">
-        <img src="placeholder9.jpg" alt="Book 9" class="book-placeholder">
-        <img src="placeholder10.jpg" alt="Book 10" class="book-placeholder">
-        <img src="placeholder11.jpg" alt="Book 11" class="book-placeholder">
-        <img src="placeholder12.jpg" alt="Book 12" class="book-placeholder">
-        <img src="placeholder1.jpg" alt="Book 1" class="book-placeholder">
-        <img src="placeholder2.jpg" alt="Book 2" class="book-placeholder">
-        <img src="placeholder3.jpg" alt="Book 3" class="book-placeholder">
-        <img src="placeholder4.jpg" alt="Book 4" class="book-placeholder">
-        <img src="placeholder5.jpg" alt="Book 5" class="book-placeholder">
-        <img src="placeholder6.jpg" alt="Book 6" class="book-placeholder">
-        <img src="placeholder7.jpg" alt="Book 7" class="book-placeholder">
-        <img src="placeholder8.jpg" alt="Book 8" class="book-placeholder">
-        <img src="placeholder9.jpg" alt="Book 9" class="book-placeholder">
-        <img src="placeholder10.jpg" alt="Book 10" class="book-placeholder">
-        <img src="placeholder11.jpg" alt="Book 11" class="book-placeholder">
-        <img src="placeholder12.jpg" alt="Book 12" class="book-placeholder">
-        <img src="placeholder1.jpg" alt="Book 1" class="book-placeholder">
-        <img src="placeholder2.jpg" alt="Book 2" class="book-placeholder">
-        <img src="placeholder3.jpg" alt="Book 3" class="book-placeholder">
-        <img src="placeholder4.jpg" alt="Book 4" class="book-placeholder">
-        <img src="placeholder5.jpg" alt="Book 5" class="book-placeholder">
-        <img src="placeholder6.jpg" alt="Book 6" class="book-placeholder">
-        <img src="placeholder7.jpg" alt="Book 7" class="book-placeholder">
-        <img src="placeholder8.jpg" alt="Book 8" class="book-placeholder">
-        <img src="placeholder9.jpg" alt="Book 9" class="book-placeholder">
-        <img src="placeholder10.jpg" alt="Book 10" class="book-placeholder">
-        <img src="placeholder11.jpg" alt="Book 11" class="book-placeholder">
-        <img src="placeholder12.jpg" alt="Book 12" class="book-placeholder">
-        <img src="placeholder1.jpg" alt="Book 1" class="book-placeholder">
-        <img src="placeholder2.jpg" alt="Book 2" class="book-placeholder">
-        <img src="placeholder3.jpg" alt="Book 3" class="book-placeholder">
-        <img src="placeholder4.jpg" alt="Book 4" class="book-placeholder">
-        <img src="placeholder5.jpg" alt="Book 5" class="book-placeholder">
-        <img src="placeholder6.jpg" alt="Book 6" class="book-placeholder">
-        <img src="placeholder7.jpg" alt="Book 7" class="book-placeholder">
-        <img src="placeholder8.jpg" alt="Book 8" class="book-placeholder">
-        <img src="placeholder9.jpg" alt="Book 9" class="book-placeholder">
-        <img src="placeholder10.jpg" alt="Book 10" class="book-placeholder">
-        <img src="placeholder11.jpg" alt="Book 11" class="book-placeholder">
-        <img src="placeholder12.jpg" alt="Book 12" class="book-placeholder">
-        <img src="placeholder1.jpg" alt="Book 1" class="book-placeholder">
-        <img src="placeholder2.jpg" alt="Book 2" class="book-placeholder">
-        <img src="placeholder3.jpg" alt="Book 3" class="book-placeholder">
-        <img src="placeholder4.jpg" alt="Book 4" class="book-placeholder">
-        <img src="placeholder5.jpg" alt="Book 5" class="book-placeholder">
-        <img src="placeholder6.jpg" alt="Book 6" class="book-placeholder">
-        <img src="placeholder7.jpg" alt="Book 7" class="book-placeholder">
-        <img src="placeholder8.jpg" alt="Book 8" class="book-placeholder">
-        <img src="placeholder9.jpg" alt="Book 9" class="book-placeholder">
-        <img src="placeholder10.jpg" alt="Book 10" class="book-placeholder">
-        <img src="placeholder11.jpg" alt="Book 11" class="book-placeholder">
-        <img src="placeholder12.jpg" alt="Book 12" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 1" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 2" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 3" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 4" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 5" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 6" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 7" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 8" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 9" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 10" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 11" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 12" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 1" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 2" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 3" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 4" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 5" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 6" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 7" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 8" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 9" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 10" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 11" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 12" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 1" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 2" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 3" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 4" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 5" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 6" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 7" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 8" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 9" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 10" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 11" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 12" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 1" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 2" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 3" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 4" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 5" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 6" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 7" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 8" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 9" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 10" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 11" class="book-placeholder">
+        <img src="https://random.imagecdn.app/700/700" alt="Book 12" class="book-placeholder">
     </div>
 </main>
 
@@ -102,9 +97,15 @@
             <button>Contact</button>
         </div>
         <div class="nav-wrapper">
-            <a href="#" class="nav-link">Twitter</a>
-            <a href="#" class="nav-link">Facebook</a>
-            <a href="#" class="nav-link">Discord</a>
+            <a href="#" class="nav-link">
+                <img src="public/images/twitter.svg" alt="Twitter" class="logo">
+            </a>
+            <a href="#" class="nav-link">
+                <img src="public/images/facebook.svg" alt="Facebook" class="logo">
+            </a>
+            <a href="#" class="nav-link">
+                <img src="public/images/discord.svg" alt="Discord" class="logo">
+            </a>
         </div>
     </div>
 </footer>

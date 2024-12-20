@@ -9,12 +9,10 @@
 <body>
 <header>
     <div class="container">
-        <div class="logo">
-            <a href="/" class="nav-link">
-                <img src="placeholder1.jpg" alt="Logo">
-                Power of Knowledge
-            </a>
-        </div>
+        <a href="/" class="nav-link">
+            <img src="public/images/logo.svg" alt="Logo" class="logo">
+            Power of Knowledge
+        </a>
         <nav class="nav-wrapper">
             <a href="/" class="nav-link">Home</a>
             <a href="/" class="nav-link">Genre</a>
@@ -33,7 +31,7 @@
 <main class="signup-page">
     <div class="auth-page">
         <div class="auth-info">
-            <img src="logo.png" alt="Logo" class="onpage-logo">
+            <img src="public/images/on-page-logo.svg" alt="Logo" class="on-page-logo">
             <h2>Join us now.</h2>
             <p>So that you can share your thoughts regarding all the books and discuss them with others. It's free and easy.</p>
         </div>
@@ -57,9 +55,15 @@
             <button>Contact</button>
         </div>
         <div class="nav-wrapper">
-            <a href="#" class="nav-link">Twitter</a>
-            <a href="#" class="nav-link">Facebook</a>
-            <a href="#" class="nav-link">Discord</a>
+            <a href="#" class="nav-link">
+                <img src="public/images/twitter.svg" alt="Twitter" class="logo">
+            </a>
+            <a href="#" class="nav-link">
+                <img src="public/images/facebook.svg" alt="Facebook" class="logo">
+            </a>
+            <a href="#" class="nav-link">
+                <img src="public/images/discord.svg" alt="Discord" class="logo">
+            </a>
         </div>
     </div>
 </footer>
