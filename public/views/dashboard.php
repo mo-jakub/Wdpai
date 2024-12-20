@@ -29,65 +29,18 @@
 </header>
 
 <main>
-<!-- <?php foreach($books as $book): ?>
- 
- <div class="card">
-     <img src="https://random.imagecdn.app/700/700">
-     <p>
-        <?= $book["name"]; ?>
-     </p>
- </div>
-<?php endforeach; ?> -->
-    <div class="books-grid">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 1" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 2" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 3" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 4" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 5" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 6" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 7" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 8" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 9" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 10" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 11" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 12" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 1" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 2" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 3" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 4" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 5" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 6" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 7" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 8" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 9" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 10" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 11" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 12" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 1" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 2" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 3" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 4" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 5" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 6" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 7" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 8" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 9" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 10" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 11" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 12" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 1" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 2" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 3" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 4" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 5" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 6" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 7" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 8" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 9" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 10" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 11" class="book-placeholder">
-        <img src="https://random.imagecdn.app/700/700" alt="Book 12" class="book-placeholder">
+<?php foreach($genres as $genre): ?>
+    <div class="book-selection container">
+        <a href="/" class="nav-link">
+            <h3><?= $genre["genre"]; ?></h3>
+        </a>
+        <div class="books-grid">
+            <?php foreach($books as $book): ?>
+                <img src="https://random.imagecdn.app/700/700" alt=<?= $book["title"]; ?> class="book-placeholder">
+            <?php endforeach; ?>
+        </div>
     </div>
+<?php endforeach; ?>
 </main>
 
 <footer>

@@ -13,6 +13,11 @@ class DefaultController extends AppController
 
         $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $this->render("dashboard", ["books" => $books]);
+        $stmt = $connector->connect()->prepare('SELECT * FROM public.genres');
+        $stmt->execute();
+
+        $genres = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $this->render("dashboard", ["books" => $books, "genres" => $genres]);
     }
 }

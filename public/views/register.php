@@ -28,12 +28,14 @@
     </div>
 </header>
 
-<main class="signup-page">
-    <div class="auth-page">
+<main class="auth-page">
         <div class="auth-info">
             <img src="public/images/on-page-logo.svg" alt="Logo" class="on-page-logo">
             <h2>Join us now.</h2>
-            <p>So that you can share your thoughts regarding all the books and discuss them with others. It's free and easy.</p>
+            <p>So that you can share your thoughts</p>
+            <p>regarding all the books</p>
+            <p>and discuss them with others.</p>
+            <p>It's free and easy.</p>
         </div>
         <div class="auth-form">
             <h2>Create an Account</h2>
@@ -45,7 +47,6 @@
                 <button type="submit">Sign Up</button>
             </form>
         </div>
-    </div>
 </main>
 
 <footer>
