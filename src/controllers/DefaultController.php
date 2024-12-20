@@ -7,7 +7,7 @@ class DefaultController extends AppController
     public function dashboard() {
         //TODO: retrive data from database
         //TODO; process
-        $connector = new DatabaseConnector();
+        $connector = DatabaseConnector::getInstance();
         $stmt = $connector->connect()->prepare('SELECT * FROM public.books');
         $stmt->execute();
 

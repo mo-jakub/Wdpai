@@ -12,5 +12,3 @@ Router::post('login', 'SecurityController');
 Router::post('register', 'SecurityController');
 
 Router::run($path);
-
-$connector = new DatabaseConnector();

@@ -7,8 +7,10 @@ class DatabaseConnector {
     private $password;
     private $host;
     private $database;
+    private static $instance = null;
+    private $connection = null;
 
-    public function __construct()
+    private function __construct()
     {
         $this->username = USERNAME;
         $this->password = PASSWORD;
@@ -16,24 +18,40 @@ class DatabaseConnector {
         $this->database = DATABASE;
     }
 
-    public function connect()
+    public static function getInstance()
     {
-        try {
-            $conn = new PDO(
-                "pgsql:host=$this->host;port=5432;dbname=$this->database",
-                $this->username,
-                $this->password
-            );
-
-            // set the PDO error mode to exception
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            return $conn;
+        if (self::$instance === null) {
+            self::$instance = new DatabaseConnector();
         }
-        catch(PDOException $e) {
-            // TODO error page redirect
-            die("Connection failed: " . $e->getMessage());
-        }
+        return self::$instance;
     }
 
-    // TODO disconnect
+    public function connect()
+    {
+        if ($this->connection === null) {
+            try {
+                $this->connection = new PDO(
+                    "pgsql:host=$this->host;port=5432;dbname=$this->database",
+                    $this->username,
+                    $this->password
+                );
+
+                // Set the PDO error mode to exception
+                $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch (PDOException $e) {
+                // TODO: error page redirect
+                die("Connection failed: " . $e->getMessage());
+            }
+        }
+        return $this->connection;
+    }
+
+    // TODO: disconnect()
+
+    private function __clone() {}
+
+    public function __wakeup()
+    {
+        throw new \Exception("Cannot unserialize a singleton.");
+    }
 }
