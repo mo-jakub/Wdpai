@@ -100,7 +100,6 @@ main {
 
 .books-grid img:hover {
     filter: brightness(30%);
-    content: attr(alt);
 }
 
 .book-placeholder {
@@ -181,10 +180,7 @@ footer {
 }
 
 @media print {
-    header {
-        display: none;
-    }
-
+    header,
     footer {
         display: none;
     }
