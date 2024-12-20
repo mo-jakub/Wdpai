@@ -25,7 +25,7 @@
 <?php endforeach; ?>
 </main>
 
-<?php include 'public/partials/header.php'; ?>
+<?php include 'public/partials/footer.php'; ?>
 
 </body>
 </html>
