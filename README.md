@@ -25,35 +25,35 @@ It features a clean, responsive design, with functionality to highlight books an
 - **Routing and index:** They choose appropriate controller to render specific pages.
 
 ## Folder Structure
-project/
-├── docker/
-│   ├── db/
-│   │   ├── Dockerfile
-│   │   └── init.sql
-│   ├── nginx/
-│   │   ├── Dockerfile
-│   │   └── nginx.conf
-│   └── php/
-│       └── Dockerfile
-├── public/
-│   ├── images/
-│   ├── partials/
-│   │   ├── footer.php
-│   │   └── header.php
-│   ├── styles/
-│   │   └── style.css
-│   └── views/
-│       ├── dashboard.php
-│       ├── login.php
-│       └── register.php
-├── src/
-│   └── controllers/
-│       ├── AppController.php
-│       ├── DefaultController.php
-│       └── SecurityController.php
-├── config.php
-├── DatabaseConnector.php
-├── docker-compose.yml
-├── index.php
-├── README.md
-└── Routing.php
+project/    
+├── docker/     
+│   ├── db/     
+│   │   ├── Dockerfile  
+│   │   └── init.sql    
+│   ├── nginx/  
+│   │   ├── Dockerfile  
+│   │   └── nginx.conf  
+│   └── php/    
+│       └── Dockerfile  
+├── public/     
+│   ├── images/     
+│   ├── partials/   
+│   │   ├── footer.php  
+│   │   └── header.php  
+│   ├── styles/     
+│   │   └── style.css   
+│   └── views/  
+│       ├── dashboard.php   
+│       ├── login.php   
+│       └── register.php    
+├── src/    
+│   └── controllers/    
+│       ├── AppController.php   
+│       ├── DefaultController.php   
+│       └── SecurityController.php  
+├── config.php  
+├── DatabaseConnector.php   
+├── docker-compose.yml  
+├── index.php   
+├── README.md   
+└── Routing.php 
