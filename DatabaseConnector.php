@@ -39,14 +39,17 @@ class DatabaseConnector {
                 // Set the PDO error mode to exception
                 $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             } catch (PDOException $e) {
-                // TODO: error page redirect
-                die("Connection failed: " . $e->getMessage());
+                header("Location: /public/errors/ErrorDB.php");
+                exit;
             }
         }
         return $this->connection;
     }
 
-    // TODO: disconnect()
+    public function disconnect()
+    {
+        $this->connection = null;
+    }
 
     private function __clone() {}
 

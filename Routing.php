@@ -3,8 +3,7 @@
 require_once 'src/controllers/DefaultController.php';
 require_once 'src/controllers/SecurityController.php';
 
-class Router
-{
+class Router {
     public static $routes;
 
     public static function get($url, $view)
@@ -23,7 +22,8 @@ class Router
         $action = $urlParts[0];
 
         if (!array_key_exists($action, self::$routes)) {
-            die("Wrong url!");
+            self::renderError();
+            return;
         }
 
         $controller = self::$routes[$action];
@@ -33,5 +33,14 @@ class Router
         $id = $urlParts[1] ?? '';
 
         $object->$action($id);
+    }
+
+    public static function renderError()
+    {
+        $errorTemplatePath = 'public/errors/Error404.php';
+        
+        if (file_exists($errorTemplatePath)) {
+            include $errorTemplatePath;
+        }
     }
 }
