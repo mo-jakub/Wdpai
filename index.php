@@ -14,5 +14,6 @@ Router::post('login', 'SecurityController');
 Router::post('register', 'SecurityController');
 Router::get('genre', 'GenreController');
 Router::get('genres', 'GenreController');
+Router::get('book', 'BookController');
 
 Router::run($path);

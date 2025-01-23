@@ -1,24 +1,22 @@
 <?php
 
 require_once 'AppController.php';
+require_once __DIR__ . '/../repositories/BookRepository.php';
 
 class DefaultController extends AppController
 {
-    public function dashboard() {
-        //TODO: retrive data from database
-        //TODO; process
-        $connector = DatabaseConnector::getInstance();
-        $stmt = $connector->connect()->prepare('SELECT * FROM public.books');
-        $stmt->execute();
+    private BookRepository $bookRepository;
 
-        $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    public function __construct()
+    {
+        parent::__construct();
+        $this->bookRepository = new BookRepository();
+    }
 
-        $stmt = $connector->connect()->prepare('SELECT * FROM public.genres');
-        $stmt->execute();
-
-        $genres = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        $this->render("dashboard", ["books" => $books, "genres" => $genres]);
+    public function dashboard(): void
+    {
+        $booksByGenre = $this->bookRepository->getBooksGroupedByGenre();
+        $this->render('dashboard', ['booksByGenre' => $booksByGenre]);
     }
 
     public function info()
