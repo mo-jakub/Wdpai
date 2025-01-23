@@ -20,4 +20,14 @@ class DefaultController extends AppController
 
         $this->render("dashboard", ["books" => $books, "genres" => $genres]);
     }
+
+    public function info()
+    {
+        $this->render('info');
+    }
+
+    public function contact()
+    {
+        $this->render('contact');
+    }
 }
