@@ -12,5 +12,7 @@ Router::get('info', 'DefaultController');
 Router::get('contact', 'DefaultController');
 Router::post('login', 'SecurityController');
 Router::post('register', 'SecurityController');
+Router::get('genre', 'GenreController');
+Router::get('genres', 'GenreController');
 
 Router::run($path);
