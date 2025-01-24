@@ -28,6 +28,16 @@ CREATE TABLE public.books (
     description VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE public.comments (
+    id_comment SERIAL PRIMARY KEY,
+    comment VARCHAR(255) NOT NULL,
+    date TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    id_user INTEGER NOT NULL,
+    id_book INTEGER NOT NULL,
+    FOREIGN KEY (id_book) REFERENCES public.books(id_book),
+    FOREIGN KEY (id_user) REFERENCES public.users(id_user)
+);
+
 CREATE TABLE public.tags (
     id_tag SERIAL PRIMARY KEY,
     tag VARCHAR(100) NOT NULL UNIQUE

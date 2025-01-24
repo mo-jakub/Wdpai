@@ -8,6 +8,7 @@ class Book
     private array $tags = [];
     private array $authors = [];
     private array $genres = [];
+    private array $comments = [];
 
     public function __construct() {}
 
@@ -28,17 +29,17 @@ class Book
 
     public function getTags(): array
     {
-        return $this->tags;
+        return $this->tags ?? [];
     }
 
     public function getGenres(): array
     {
-        return $this->genres;
+        return $this->genres ?? [];
     }
 
     public function getAuthors(): array
     {
-        return $this->authors;
+        return $this->authors ?? [];
     }
 
     public function setTags(array $tags): void
@@ -55,4 +56,14 @@ class Book
     {
         $this->genres = $genres;
     }
+
+    public function setComments(array $comments): void
+    {
+        $this->comments = $comments;
+    }
+    
+    public function getComments(): array
+    {
+        return $this->comments ?? [];
+    }    
 }
