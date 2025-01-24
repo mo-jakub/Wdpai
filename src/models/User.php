@@ -1,11 +1,10 @@
 <?php
 
 class User {
-    private $id;
-    private $username;
-    private $email;
-    private $hashed_password;
-    private $avatarUrl;
+    private int $id;
+    private string $username;
+    private string $email;
+    private string $hashed_password;
 
     public function __construct(
         string $username,
@@ -17,7 +16,6 @@ class User {
         $this->email = $email;
         $this->hashed_password = $hashed_password;
         $this->id = null;
-        $this->avatarUrl = null;
     }
 
     public function getId()
@@ -40,11 +38,6 @@ class User {
         return $this->hashed_password;
     }
 
-    public function getAvatarUrl()
-    {
-        return $this->avatarUrl;
-    }
-
     public function setId(int $id)
     {
         $this->id = $id;
@@ -63,10 +56,5 @@ class User {
     public function setHashedPassword(string $hashed_password)
     {
         $this->hashed_password = $hashed_password;
-    }
-
-    public function setAvatarUrl(string $avatarUrl)
-    {
-        $this->avatarUrl = $avatarUrl;
     }
 }

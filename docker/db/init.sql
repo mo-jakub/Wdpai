@@ -3,7 +3,6 @@ CREATE TABLE public.users (
     username VARCHAR(100) NOT NULL UNIQUE,
     email VARCHAR(255) NOT NULL UNIQUE,
     hashed_password VARCHAR(100) NOT NULL,
-    avatar_url VARCHAR(255)
 );
 
 CREATE TABLE public.admins (
@@ -249,12 +248,12 @@ INSERT INTO public.book_authors (id_book, id_author) VALUES
 (49, 44), -- House of Leaves by Mark Z. Danielewski
 (50, 45); -- The Silence of the Lambs by Thomas Harris
 
-INSERT INTO public.users (username, email, hashed_password, avatar_url) VALUES
-('User1', 'user1@example.com', 'hashedpassword1', 'https://example.com/avatar1.png'),
-('User2', 'user2@example.com', 'hashedpassword2', 'https://example.com/avatar2.png'),
-('User3', 'user3@example.com', 'hashedpassword3', 'https://example.com/avatar3.png'),
-('User4', 'user4@example.com', 'hashedpassword4', NULL),
-('User5', 'user5@example.com', 'hashedpassword5', 'https://example.com/avatar5.png');
+INSERT INTO public.users (username, email, hashed_password) VALUES
+('User1', 'user1@example.com', 'hashedpassword1'),
+('User2', 'user2@example.com', 'hashedpassword2'),
+('User3', 'user3@example.com', 'hashedpassword3'),
+('User4', 'user4@example.com', 'hashedpassword4'),
+('User5', 'user5@example.com', 'hashedpassword5');
 
 INSERT INTO public.admins (name, surname, id_user) VALUES
 ('Admin1', 'LastName1', 1),
