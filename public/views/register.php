@@ -9,6 +9,13 @@
 </head>
 <body>
 
+<?php
+if (isset($_COOKIE['session_token'])) {
+    header('Location: /');
+    exit();
+}
+?>
+
 <?php include 'public/partials/header.php'; ?>
 
 <main class="auth-page">
@@ -22,7 +29,7 @@
         </div>
         <div class="auth-form">
             <h2>Create an Account</h2>
-            <form action="register.php" method="post">
+            <form action="/register" method="post">
                 <input type="text" name="username" placeholder="Username" required>
                 <input type="email" name="email" placeholder="Email" required>
                 <input type="password" name="password" placeholder="Password" required>

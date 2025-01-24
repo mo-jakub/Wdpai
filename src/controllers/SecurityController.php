@@ -1,60 +1,72 @@
 <?php
 
 require_once 'AppController.php';
+require_once __DIR__ . '/../models/User.php';
+require_once __DIR__ . '/../repositories/UserRepository.php';
 
-class SecurityController extends AppController {
+class SecurityController extends AppController
+{
+    private UserRepository $userRepository;
 
-
-    public function login()
+    public function __construct()
     {
-        if (!$this->isPost()) {
-            return $this->render('login');
-        }
-
-        $email = $_POST['email'];
-        $password = md5($_POST['password']);
-
-        $user = $this->userRepository->getUser($email);
-
-        if (!$user) {
-            return $this->render('login', ['messages' => ['User not found!']]);
-        }
-
-        if ($user->getEmail() !== $email) {
-            return $this->render('login', ['messages' => ['User with this email not exist!']]);
-        }
-
-        if ($user->getPassword() !== $password) {
-            return $this->render('login', ['messages' => ['Wrong password!']]);
-        }
-
-        $url = "http://$_SERVER[HTTP_HOST]";
-        header("Location: {$url}/projects");
+        parent::__construct();
+        $this->userRepository = new UserRepository();
     }
 
-    public function register()
+    public function login(): void
     {
-        if (!$this->isPost()) {
-            return $this->render('register');
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+
+            $user = $this->userRepository->getUserByEmail($email);
+            if ($user && password_verify($password, $user['hashed_password'])) {
+                $sessionId = bin2hex(random_bytes(32));
+                $expirationDate = (new DateTime())->modify('+1 hour')->format('Y-m-d H:i:s');
+                $this->userRepository->createSession($user['id_user'], $sessionId, $expirationDate);
+                setcookie('session_token', $sessionId, time() + 3600, '/');
+                header('Location: /');
+                return;
+            } else {
+                $this->render('login', ['message' => 'Niepoprawny email lub hasło']);
+                return;
+            }
         }
 
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        $confirmedPassword = $_POST['confirmedPassword'];
-        $name = $_POST['name'];
-        $surname = $_POST['surname'];
-        $phone = $_POST['phone'];
+        $this->render('login');
+    }
 
-        if ($password !== $confirmedPassword) {
-            return $this->render('register', ['messages' => ['Please provide proper password']]);
+    public function logout(): void
+    {
+        if (isset($_COOKIE['session_token'])) {
+            $this->userRepository->deleteSession($_COOKIE['session_token']);
+            setcookie('session_token', '', time() - 3600, '/');
+            header('Location: /');
+        }
+    }
+
+    public function register(): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $username = $_POST['username'];
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+            $confirmPassword = $_POST['confirm_password'];
+
+            if ($password !== $confirmPassword) {
+                $this->render('register', ['message' => 'Hasła się nie zgadzają']);
+                return;
+            }
+
+            $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+            $user = new User($username, $email, $hashedPassword);
+            $this->userRepository->addUser($user);
+
+            $this->render('login');
+            return;
         }
 
-        //TODO lepsza haszujaca funkcja
-        $user = new User($email, md5($password), $name, $surname);
-        $user->setPhone($phone);
-
-        $this->userRepository->addUser($user);
-
-        return $this->render('login', ['messages' => ['You\'ve been succesfully registrated!']]);
+        $this->render('register');
     }
 }

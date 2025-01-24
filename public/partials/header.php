@@ -13,8 +13,12 @@
             <input type="text" placeholder="Search by title or author">
         </div>
         <nav class="nav-wrapper auth">
-            <a href="/login" class="nav-link">Login</a>
-            <a href="/register" class="nav-link">Sign Up</a>
+            <?php if (isset($_COOKIE['session_token'])): ?>
+                <a href="/logout" class="nav-link">Logout</a>
+            <?php else: ?>
+                <a href="/login" class="nav-link">Login</a>
+                <a href="/register" class="nav-link">Sign Up</a>
+            <?php endif; ?>
         </nav>
     </div>
 </header>

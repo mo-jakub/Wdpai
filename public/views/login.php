@@ -9,6 +9,13 @@
 </head>
 <body>
 
+<?php
+if (isset($_COOKIE['session_token'])) {
+    header('Location: /');
+    exit();
+}
+?>
+
 <?php include 'public/partials/header.php'; ?>
 
 <main class="auth-page">
@@ -18,7 +25,7 @@
     </div>
     <div class="auth-form">
         <h2>Log Into an Existing Account</h2>
-        <form action="login.php" method="post">
+        <form action="/login" method="post">
             <input type="email" name="email" placeholder="Email" required>
             <input type="password" name="password" placeholder="Password" required>
             <button type="submit">Login</button>
