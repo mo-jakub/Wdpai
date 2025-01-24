@@ -13,8 +13,12 @@ Router::get('contact', 'DefaultController');
 Router::post('login', 'SecurityController');
 Router::post('register', 'SecurityController');
 Router::get('logout', 'SecurityController');
-Router::get('genre', 'GenreController');
-Router::get('genres', 'GenreController');
+Router::get('genre', 'SearchController');
+Router::get('tag', 'SearchController');
+Router::get('author', 'SearchController');
+Router::get('genres', 'SearchController');
+Router::get('tags', 'SearchController');
+Router::get('authors', 'SearchController');
 Router::get('book', 'BookController');
 
 Router::run($path);

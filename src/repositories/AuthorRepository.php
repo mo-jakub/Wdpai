@@ -1,38 +1,38 @@
 <?php
 
 require_once __DIR__ . '/Repository.php';
-require_once __DIR__ . '/../models/Genre.php';
+require_once __DIR__ . '/../models/Author.php';
 
-class GenreRepository extends Repository
+class AuthorRepository extends Repository
 {
     public function getAll(): array
     {
         $stmt = $this->database->connect()->prepare("
-            SELECT id_genre AS id, genre AS name
-            FROM public.genres
-            ORDER BY genre;
+            SELECT id_author AS id, author AS name
+            FROM public.authors
+            ORDER BY author;
         ");
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_CLASS, 'Genre');
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'Author');
     }
 
-    public function getGenreById(int $id): ?array
+    public function getAuthorById(int $id): ?array
     {
         $stmt = $this->database->connect()->prepare('
-            SELECT id_genre, genre AS name
-            FROM public.genres
-            WHERE id_genre = :id
+            SELECT id_author, author AS name
+            FROM public.authors
+            WHERE id_author = :id
         ');
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
 
-        $genre = $stmt->fetch(PDO::FETCH_ASSOC);
+        $author = $stmt->fetch(PDO::FETCH_ASSOC);
 
         $this->database->disconnect();
-        return $genre ?: null;
+        return $author ?: null;
     }
 
-    public function getBooksByGenreId(int $genreId): array
+    public function getBooksByAuthorId(int $id): array
     {
         $stmt = $this->database->connect()->prepare("
             SELECT 
@@ -41,11 +41,11 @@ class GenreRepository extends Repository
                 b.description
             FROM 
                 public.books b
-            LEFT JOIN public.book_genres bg ON b.id_book = bg.id_book
-            WHERE bg.id_genre = :genreId
+            LEFT JOIN public.book_authors ba ON b.id_book = ba.id_book
+            WHERE ba.id_author = :id
         ");
 
-        $stmt->bindParam(':genreId', $genreId, PDO::PARAM_INT);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
 
         $books = [];

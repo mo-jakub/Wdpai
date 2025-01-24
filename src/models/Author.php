@@ -1,6 +1,6 @@
 <?php
 
-class Genre
+class Author
 {
     private int $id;
     private string $name;

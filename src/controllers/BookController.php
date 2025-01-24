@@ -13,7 +13,7 @@ class BookController extends AppController
         $this->bookRepository = new BookRepository();
     }
 
-    public function book($id)
+    public function book($id): void
     {
         $book = $this->bookRepository->getBookById((int) $id);
 
@@ -24,4 +24,18 @@ class BookController extends AppController
 
         $this->render('book', ['book' => $book]);
     }
+
+    public function addComment($bookId): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment']))
+        {
+            $comment = trim($_POST['comment']);
+            $userId = $_SESSION['user_id'];
+    
+            $this->bookRepository->addComment($bookId, $userId, $comment);
+        }
+    
+        header('Location: /book/' . $bookId);
+    }
+    
 }

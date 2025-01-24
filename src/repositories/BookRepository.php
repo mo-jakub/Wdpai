@@ -50,61 +50,81 @@ class BookRepository extends Repository
     public function getBookById(int $id): ?Book
     {
         $stmt = $this->database->connect()->prepare("
-            SELECT 
-                b.id_book AS id,
-                b.title,
-                b.description
-            FROM 
-                public.books b
-            WHERE 
-                b.id_book = :id
+            SELECT b.id_book AS id, b.title, b.description 
+            FROM public.books b 
+            WHERE b.id_book = :id
         ");
-
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Book');
-
+    
         /** @var Book $book */
         $book = $stmt->fetch();
-
         if (!$book) {
             return null;
         }
-
-        // Pobierz tagi książki
+    
         $tagsStmt = $this->database->connect()->prepare("
-            SELECT t.tag
-            FROM public.book_tags bt
-            LEFT JOIN public.tags t ON bt.id_tag = t.id_tag
+            SELECT t.id_tag, t.tag 
+            FROM public.book_tags bt 
+            LEFT JOIN public.tags t ON bt.id_tag = t.id_tag 
             WHERE bt.id_book = :id
         ");
         $tagsStmt->bindParam(':id', $id, PDO::PARAM_INT);
         $tagsStmt->execute();
-        $book->setTags($tagsStmt->fetchAll(PDO::FETCH_COLUMN));
+        $book->setTags($tagsStmt->fetchAll(PDO::FETCH_ASSOC));
 
-        // Pobierz autorów książki
+    
         $authorsStmt = $this->database->connect()->prepare("
-            SELECT a.author
-            FROM public.book_authors ba
-            LEFT JOIN public.authors a ON ba.id_author = a.id_author
+            SELECT a.id_author, a.author 
+            FROM public.book_authors ba 
+            LEFT JOIN public.authors a ON ba.id_author = a.id_author 
             WHERE ba.id_book = :id
         ");
         $authorsStmt->bindParam(':id', $id, PDO::PARAM_INT);
         $authorsStmt->execute();
-        $book->setAuthors($authorsStmt->fetchAll(PDO::FETCH_COLUMN));
+        $book->setAuthors($authorsStmt->fetchAll(PDO::FETCH_ASSOC));
 
-        // Pobierz gatunki książki
+    
         $genresStmt = $this->database->connect()->prepare("
-            SELECT g.genre
-            FROM public.book_genres bg
-            LEFT JOIN public.genres g ON bg.id_genre = g.id_genre
+            SELECT g.id_genre, g.genre 
+            FROM public.book_genres bg 
+            LEFT JOIN public.genres g ON bg.id_genre = g.id_genre 
             WHERE bg.id_book = :id
         ");
         $genresStmt->bindParam(':id', $id, PDO::PARAM_INT);
         $genresStmt->execute();
-        $book->setGenres($genresStmt->fetchAll(PDO::FETCH_COLUMN));
-        
+        $book->setGenres($genresStmt->fetchAll(PDO::FETCH_ASSOC));
+
+
+    
+        // Pobierz komentarze książki
+        $commentsStmt = $this->database->connect()->prepare("
+            SELECT c.comment, c.date, u.username 
+            FROM public.comments c 
+            LEFT JOIN public.users u ON c.id_user = u.id_user 
+            WHERE c.id_book = :id
+            ORDER BY c.date DESC
+        ");
+        $commentsStmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $commentsStmt->execute();
+        $book->setComments($commentsStmt->fetchAll(PDO::FETCH_ASSOC));
+    
         $this->database->disconnect();
         return $book;
     }
+    
+
+    public function addComment(int $bookId, int $userId, string $comment): void
+    {
+        $stmt = $this->database->connect()->prepare("
+            INSERT INTO public.comments (comment, id_user, id_book) 
+            VALUES (:comment, :id_user, :id_book)
+        ");
+        $stmt->bindParam(':comment', $comment, PDO::PARAM_STR);
+        $stmt->bindParam(':id_user', $userId, PDO::PARAM_INT);
+        $stmt->bindParam(':id_book', $bookId, PDO::PARAM_INT);
+        $stmt->execute();
+        $this->database->disconnect();
+    }    
 }
