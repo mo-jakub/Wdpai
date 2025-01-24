@@ -249,11 +249,11 @@ INSERT INTO public.book_authors (id_book, id_author) VALUES
 (50, 45); -- The Silence of the Lambs by Thomas Harris
 
 INSERT INTO public.users (username, email, hashed_password) VALUES
-('User1', 'user1@example.com', 'hashedpassword1'),
-('User2', 'user2@example.com', 'hashedpassword2'),
-('User3', 'user3@example.com', 'hashedpassword3'),
-('User4', 'user4@example.com', 'hashedpassword4'),
-('User5', 'user5@example.com', 'hashedpassword5');
+('User1', 'user1@example.com', '$2y$10$bnc1XX3EmcUnu0puWME0UeTDeiF4HOWa3Awk.MoCGp30D/E6309XG'),
+('User2', 'user2@example.com', '$2y$10$bnc1XX3EmcUnu0puWME0UeTDeiF4HOWa3Awk.MoCGp30D/E6309XG'),
+('User3', 'user3@example.com', '$2y$10$bnc1XX3EmcUnu0puWME0UeTDeiF4HOWa3Awk.MoCGp30D/E6309XG'),
+('User4', 'user4@example.com', '$2y$10$bnc1XX3EmcUnu0puWME0UeTDeiF4HOWa3Awk.MoCGp30D/E6309XG'),
+('User5', 'user5@example.com', '$2y$10$bnc1XX3EmcUnu0puWME0UeTDeiF4HOWa3Awk.MoCGp30D/E6309XG');
 
 INSERT INTO public.admins (name, surname, id_user) VALUES
 ('Admin1', 'LastName1', 1),
