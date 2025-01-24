@@ -7,7 +7,7 @@
         <nav class="nav-wrapper">
             <a href="/" class="nav-link">Home</a>
             <a href="/genres" class="nav-link">Genres</a>
-            <a href="/" class="nav-link">Tags</a>
+            <a href="/tags" class="nav-link">Tags</a>
         </nav>
         <div class="search-bar">
             <input type="text" placeholder="Search by title or author">
