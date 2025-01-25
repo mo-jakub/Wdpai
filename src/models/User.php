@@ -15,7 +15,6 @@ class User {
         $this->username = $username;
         $this->email = $email;
         $this->hashed_password = $hashed_password;
-        $this->id = null;
     }
 
     public function getId()
