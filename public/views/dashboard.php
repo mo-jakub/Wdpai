@@ -1,3 +1,4 @@
+<?php /** @var array $booksByGenre */ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,10 +14,12 @@
 
 <main>
 <?php foreach($booksByGenre as $genreData): ?>
-    <div class="book-selection container">
+    <div class="container">
         <a href="/genre/<?= $genreData['id'] ?>" class="nav-link">
             <h2><?= htmlspecialchars($genreData['name']) ?></h2>
         </a>
+    </div>
+    <div class="container column">
         <div class="books-grid">
             <?php foreach($genreData['books'] as $book): ?>
                 <a href="/book/<?= $book['id'] ?>">
