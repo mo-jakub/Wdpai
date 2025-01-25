@@ -66,4 +66,26 @@ class UserRepository extends Repository
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         return $user ?: null;
     }
+
+    public function usernameExists(string $username): bool
+    {
+        $stmt = $this->database->connect()->prepare('
+        SELECT 1 FROM public.users WHERE username = :username
+    ');
+        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return (bool) $stmt->fetchColumn();
+    }
+
+    public function emailExists(string $email): bool
+    {
+        $stmt = $this->database->connect()->prepare('
+        SELECT 1 FROM public.users WHERE email = :email
+    ');
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return (bool) $stmt->fetchColumn();
+    }
 }
