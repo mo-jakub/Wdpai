@@ -2,7 +2,7 @@ CREATE TABLE public.users (
     id_user SERIAL PRIMARY KEY,
     username VARCHAR(100) NOT NULL UNIQUE,
     email VARCHAR(255) NOT NULL UNIQUE,
-    hashed_password VARCHAR(100) NOT NULL,
+    hashed_password VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE public.admins (
