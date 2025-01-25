@@ -6,6 +6,7 @@
     <title>Sign Up - Power Of Knowledge</title>
     <link rel="stylesheet" type="text/css" href="public/styles/style.css">
     <link rel="icon" type="image/png" href="/public/images/logo.svg">
+    <script src="/public/scripts/registerValidation.js"></script>
 </head>
 <body>
 
@@ -30,10 +31,11 @@ if (isset($_COOKIE['session_token'])) {
         <div class="auth-form">
             <h2>Create an Account</h2>
             <form action="/register" method="post">
-                <input type="text" name="username" placeholder="Username" required>
-                <input type="email" name="email" placeholder="Email" required>
+                <input type="text" name="username" placeholder="Username" value="<?= $default['username'] ?? ''; ?>" required>
+                <input type="email" name="email" placeholder="Email" value="<?= $default['email'] ?? ''; ?>" required>
                 <input type="password" name="password" placeholder="Password" required>
                 <input type="password" name="confirm_password" placeholder="Repeat Password" required>
+                <label><?= $message ?? ''; ?></label>
                 <button type="submit">Sign Up</button>
             </form>
         </div>

@@ -16,9 +16,16 @@ class SecurityController extends AppController
 
     public function login(): void
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $email = $_POST['email'];
-            $password = $_POST['password'];
+        if ($this->isPost()) {
+            try {
+                $email = $_POST['email'];
+                $password = $_POST['password'];
+            } catch (Exception $e) {
+                $this->render('login',
+                    ['message' => 'Incorrect data'
+                ]);
+                return;
+            }
 
             $user = $this->userRepository->getUserByEmail($email);
             if ($user && password_verify($password, $user['hashed_password'])) {
@@ -29,7 +36,7 @@ class SecurityController extends AppController
                 header('Location: /');
                 return;
             } else {
-                $this->render('login', ['message' => 'Niepoprawny email lub hasło']);
+                $this->render('login', ['message' => 'Email or password is incorrect']);
                 return;
             }
         }
@@ -48,20 +55,61 @@ class SecurityController extends AppController
 
     public function register(): void
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $username = $_POST['username'];
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-            $confirmPassword = $_POST['confirm_password'];
+        if ($this->isPost()) {
+            try {
+                $username = $_POST['username'];
+                $email = $_POST['email'];
+                $password = $_POST['password'];
+                $confirmPassword = $_POST['confirm_password'];
+            } catch (Exception $e) {
+                $this->render('register',
+                    ['message' => 'Incorrect data'
+                ]);
+                return;
+            }
 
             if ($password !== $confirmPassword) {
-                $this->render('register', ['message' => 'Hasła się nie zgadzają']);
+                $this->render('register',
+                        ['message' => 'Passwords do not match',
+                        'default' => ['email' => $email, 'username' => $username]
+                    ]);
+                return;
+            } else if (strlen($password) < 8) {
+                $this->render('register',
+                        ['message' => 'Password is too short',
+                        'default' => ['email' => $email, 'username' => $username]
+                    ]);
+                return;
+            }
+
+            if ($this->userRepository->usernameExists($username)) {
+                $this->render('register', [
+                    'message' => 'Username is already taken',
+                    'default' => ['email' => $email, 'username' => $username]
+                ]);
+                return;
+            }
+
+            if ($this->userRepository->emailExists($email)) {
+                $this->render('register', [
+                    'message' => 'Email is already registered',
+                    'default' => ['email' => $email, 'username' => $username]
+                ]);
                 return;
             }
 
             $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
             $user = new User($username, $email, $hashedPassword);
-            $this->userRepository->addUser($user);
+
+            try {
+                $this->userRepository->addUser($user);
+            } catch (Exception $e) {
+                $this->render('register', [
+                    'message' => 'An error occurred while creating the user',
+                    'default' => ['email' => $email, 'username' => $username]
+                ]);
+                return;
+            }
 
             $this->render('login');
             return;
