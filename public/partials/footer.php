@@ -1,6 +1,6 @@
 <footer>
     <div class="container">
-        <div class="footer-nav nav-wrapper">
+        <div class="nav-wrapper">
             <a href="/info" class="nav-link">
                 <button>About Us</button>
             </a>
@@ -10,13 +10,13 @@
         </div>
         <div class="nav-wrapper">
             <a href="#" class="nav-link">
-                <img src="/public/images/twitter.svg" alt="Twitter" class="logo">
+                <img src="/public/images/footer/twitter.svg" alt="Twitter" class="logo">
             </a>
             <a href="#" class="nav-link">
-                <img src="/public/images/facebook.svg" alt="Facebook" class="logo">
+                <img src="/public/images/footer/facebook.svg" alt="Facebook" class="logo">
             </a>
             <a href="#" class="nav-link">
-                <img src="/public/images/discord.svg" alt="Discord" class="logo">
+                <img src="/public/images/footer/discord.svg" alt="Discord" class="logo">
             </a>
         </div>
     </div>
