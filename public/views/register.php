@@ -19,8 +19,8 @@ if (isset($_COOKIE['session_token'])) {
 
 <?php include 'public/partials/header.php'; ?>
 
-<main class="auth-page">
-        <div class="auth-info">
+<main class="page">
+        <div class="info non-important">
             <img src="/public/images/on-page-logo.svg" alt="Logo" class="on-page-logo">
             <h2>Join us now.</h2>
             <p>So that you can share your thoughts</p>

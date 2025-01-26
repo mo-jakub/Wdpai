@@ -21,7 +21,7 @@
     <div class="container column">
         <?php foreach ($books as $book): ?>
             <div class="container">
-                <a class="book-display" href="/book/<?= $book['id'] ?>">
+                <a class="nav-link book-display " href="/book/<?= $book['id'] ?>">
                     <img src="https://random.imagecdn.app/700/700" alt="<?= htmlspecialchars($book['title']) ?>" class="book-placeholder">
                     <h3><?= htmlspecialchars($book['title']) ?></h3>
                     <p><?= htmlspecialchars($book['description']) ?></p>

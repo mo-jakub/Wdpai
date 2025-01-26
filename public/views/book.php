@@ -1,5 +1,3 @@
-<?php /** @var Book $book */ ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,27 +18,39 @@
         </div>
         <div class="details">
             <h2>Title: <?= htmlspecialchars($book->getTitle()) ?></h2>
-            <p><strong>Author(s):</strong> 
+            <p>
+                <strong>
+                    <a href="/authors" class="nav-link">Author(s)</a>
+                </strong> 
                 <?php foreach ($book->getAuthors() as $author): ?>
-                    <a href="/author/<?= htmlspecialchars($author['id_author']) ?>"><?= htmlspecialchars($author['author']) ?></a>
+                    <a href="/author/<?= htmlspecialchars($author['id_author']) ?>" class="nav-link"><?= htmlspecialchars($author['author']) ?></a>
                 <?php endforeach; ?>
             </p>
-            <p><strong>Genres:</strong> 
+            <p>
+                <strong>
+                    <a href="/genres" class="nav-link">Genres</a>
+                </strong> 
                 <?php foreach ($book->getGenres() as $genre): ?>
-                    <a href="/genre/<?= htmlspecialchars($genre['id_genre']) ?>"><?= htmlspecialchars($genre['genre']) ?></a>
+                    <a href="/genre/<?= htmlspecialchars($genre['id_genre']) ?>" class="nav-link"><?= htmlspecialchars($genre['genre']) ?></a>
                 <?php endforeach; ?>
             </p>
-            <p><strong>Description:</strong></p>
-            <p><?= nl2br(htmlspecialchars($book->getDescription())) ?></p>
         </div>
     </div>
     <div class="tags">
-        <p><strong>Tags:</strong></p>
+        <p>
+            <strong>
+                <a href="/tags" class="nav-link">Tags</a>
+            </strong>
+        </p>
         <ul>
             <?php foreach ($book->getTags() as $tag): ?>
-                <li><a href="/tag/<?= htmlspecialchars($tag['id_tag']) ?>"><?= htmlspecialchars($tag['tag']) ?></a></li>
+                <li><a href="/tag/<?= htmlspecialchars($tag['id_tag']) ?>" class="nav-link"><?= htmlspecialchars($tag['tag']) ?></a></li>
             <?php endforeach; ?>
         </ul>
+    </div>
+    <div class="desc">
+        <p><strong>Description:</strong></p>
+        <p><?= nl2br(htmlspecialchars($book->getDescription())) ?></p>
     </div>
     <div class="comments">
         <h3>Comments:</h3>
@@ -58,13 +68,12 @@
         <?php endif; ?>
     </div>
     <div class="add-comment">
-    <h3>Add a comment:</h3>
-    <form method="post" action="/book/<?= $book->getId() ?>/comment">
-        <textarea name="comment" required></textarea>
-        <button type="submit">Submit</button>
-    </form>
-</div>
-
+        <h3>Add a comment:</h3>
+        <form method="post" action="/book/<?= $book->getId() ?>/comment">
+            <textarea name="comment" placeholder="Write your comment here..." required></textarea>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
 </main>
 
 <?php include 'public/partials/footer.php'; ?>

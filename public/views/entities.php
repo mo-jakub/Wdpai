@@ -19,10 +19,8 @@
     </div>
     <div class="container column">
         <?php foreach ($entities as $entity): ?>
-            <a href="/entity?type=<?= $type ?>&id=<?= $entity->getId() ?>">
-                <div class="entity-card">
-                    <h3># <?= htmlspecialchars($entity->getName()); ?></h3>
-                </div>
+            <a href="/entity?type=<?= $type ?>&id=<?= $entity->getId() ?>" class="nav-link">
+                <h4># <?= htmlspecialchars($entity->getName()); ?></h4>
             </a>
         <?php endforeach; ?>
     </div>
