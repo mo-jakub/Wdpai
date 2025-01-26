@@ -164,10 +164,15 @@ main {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    align-items: center;
 }
 
 .auth-form input {
     border-radius: 1rem;
+    background: none;
+    color: white;
+    border-color: #3D4D9B;
+    width: 100%;
 }
 
 button {
@@ -177,8 +182,8 @@ button {
     padding: 10px;
     cursor: pointer;
     width: 100%;
-    margin-right: 10px;
     border-radius: 1rem;
+    white-space: nowrap;
 }
 
 button:hover {
@@ -210,6 +215,10 @@ button:hover {
         display: flex;
     }
 
+    .auth-info {
+        display: none;
+    }
+
     .menu-icon {
         display: flex;
         align-items: center;
@@ -232,20 +241,10 @@ button:hover {
         padding: 1rem;
         border-radius: 0.5rem;
         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-        z-index: 10;
+        z-index: 100;
     }
 
     .dropdown-menu.active {
         display: flex;
-    }
-
-    .dropdown-menu a {
-        text-decoration: none;
-        color: white;
-        font-size: 1rem;
-    }
-
-    .dropdown-menu a:hover {
-        color: #673879;
     }
 }

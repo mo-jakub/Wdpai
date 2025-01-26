@@ -10,10 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
     bubble.style.borderRadius = "5px";
     bubble.style.fontSize = "0.9em";
     bubble.style.whiteSpace = "nowrap";
-    bubble.style.visibility = "hidden";
+    bubble.style.display = "none";
     bubble.style.zIndex = "10";
 
-    passwordInput.parentElement.style.position = "relative";
     passwordInput.parentElement.appendChild(bubble);
 
     passwordInput.addEventListener("input", () => {
@@ -21,14 +20,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (password.length < 8) {
             bubble.textContent = "Password is too short (at least 8 characters).";
-            bubble.style.visibility = "visible";
+            bubble.style.display = "flex";
 
             const inputRect = passwordInput.getBoundingClientRect();
             const bubbleOffset = 10;
             bubble.style.top = `${passwordInput.offsetTop}px`;
             bubble.style.left = `${passwordInput.offsetWidth + bubbleOffset}px`;
         } else {
-            bubble.style.visibility = "hidden";
+            bubble.style.display = "none";
         }
     });
 });
