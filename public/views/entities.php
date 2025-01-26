@@ -1,3 +1,5 @@
+<?php /** @var string $type */ ?>
+<?php /** @var array $entities */ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,19 +14,18 @@
 <?php include 'public/partials/header.php'; ?>
 
 <main>
-<div class="entity-selection container">
-    <h1><?= ucfirst(htmlspecialchars($type)) ?>s</h1>
-    <div class="entity-grid">
+    <div class="container">
+        <h1><?= ucfirst(htmlspecialchars($type)) ?>s</h1>
+    </div>
+    <div class="container column">
         <?php foreach ($entities as $entity): ?>
             <a href="/<?= $type ?>/<?= $entity->getId() ?>">
                 <div class="entity-card">
-                    <img src="https://random.imagecdn.app/700/700" alt="<?= htmlspecialchars($entity->getName()); ?>" class="entity-placeholder">
-                    <h3><?= htmlspecialchars($entity->getName()); ?></h3>
+                    <h3># <?= htmlspecialchars($entity->getName()); ?></h3>
                 </div>
             </a>
         <?php endforeach; ?>
     </div>
-</div>
 </main>
 
 <?php include 'public/partials/footer.php'; ?>

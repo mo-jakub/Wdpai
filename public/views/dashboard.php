@@ -19,7 +19,7 @@
             <h2><?= htmlspecialchars($genreData['name']) ?></h2>
         </a>
     </div>
-    <div class="container column">
+    <div class="container">
         <div class="books-grid">
             <?php foreach($genreData['books'] as $book): ?>
                 <a href="/book/<?= $book['id'] ?>">

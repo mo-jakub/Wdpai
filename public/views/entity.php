@@ -1,3 +1,6 @@
+<?php /** @var string $type */ ?>
+<?php /** @var array $entity */ ?>
+<?php /** @var array $books */ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,16 +15,18 @@
 <?php include 'public/partials/header.php'; ?>
 
 <main>
-    <h1><?= ucfirst(htmlspecialchars($type)) ?>: <?= htmlspecialchars($entity['name']) ?></h1>
-
-    <div class="books-grid">
+    <div class="container">
+        <h1><?= ucfirst(htmlspecialchars($type)) ?>: <?= htmlspecialchars($entity['name']) ?></h1>
+    </div>
+    <div class="container column">
         <?php foreach ($books as $book): ?>
-            <a href="/book/<?= $book['id'] ?>">
-                <div class="book-card">
+            <div class="container">
+                <a class="book-display" href="/book/<?= $book['id'] ?>">
+                    <img src="https://random.imagecdn.app/700/700" alt="<?= htmlspecialchars($book['title']) ?>" class="book-placeholder">
                     <h3><?= htmlspecialchars($book['title']) ?></h3>
                     <p><?= htmlspecialchars($book['description']) ?></p>
-                </div>
-            </a>
+                </a>
+            </div>
         <?php endforeach; ?>
     </div>
 </main>
