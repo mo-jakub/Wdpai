@@ -7,72 +7,53 @@ require_once __DIR__ . '/../repositories/AuthorRepository.php';
 
 class SearchController extends AppController
 {
-    private GenreRepository $genreRepository;
-    private TagRepository $tagRepository;
-    private AuthorRepository $authorRepository;
+    private array $repositories;
 
     public function __construct()
     {
         parent::__construct();
-        $this->genreRepository = new GenreRepository();
-        $this->tagRepository = new TagRepository();
-        $this->authorRepository = new AuthorRepository();
+        $this->repositories = [
+            'genre' => new GenreRepository(),
+            'tag' => new TagRepository(),
+            'author' => new AuthorRepository(),
+        ];
     }
 
-    public function genre($id): void
+    public function entity(): void
     {
-        $books = $this->genreRepository->getBooksByGenreId((int) $id);
-        $genre = $this->genreRepository->getGenreById((int) $id);
-    
-        if (!$genre) {
+        $type = $_GET['type'] ?? '';
+        $id = $_GET['id'] ?? '';
+        if (!array_key_exists($type, $this->repositories)) {
             $this->render('errors/ErrorDB');
             return;
         }
-    
+
+        $repository = $this->repositories[$type];
+        $entity = $repository->{"get" . ucfirst($type) . "ById"}((int)$id);
+        $books = $repository->{"getBooksBy" . ucfirst($type) . "Id"}((int)$id);
+
+        if (!$entity) {
+            $this->render('errors/ErrorDB');
+            return;
+        }
+
         $this->render('entity', [
-            'type' => 'genre',
-            'entity' => $genre,
+            'type' => $type,
+            'entity' => $entity,
             'books' => $books,
         ]);
     }
 
-    public function tag($id): void
+    public function entities(): void
     {
-        $books = $this->tagRepository->getBooksByTagId((int) $id);
-        $tag = $this->tagRepository->getTagById((int) $id);
-    
-        if (!$tag) {
+        $type = $_GET['type'] ?? '';
+        if (!array_key_exists($type, $this->repositories)) {
             $this->render('errors/ErrorDB');
             return;
         }
-    
-        $this->render('entity', [
-            'type' => 'tag',
-            'entity' => $tag,
-            'books' => $books,
-        ]);
-    }
 
-    public function author($id): void
-    {
-        $books = $this->authorRepository->getBooksByAuthorId((int) $id);
-        $author = $this->authorRepository->getAuthorById((int) $id);
-    
-        if (!$author) {
-            $this->render('errors/ErrorDB');
-            return;
-        }
-    
-        $this->render('entity', [
-            'type' => 'author',
-            'entity' => $author,
-            'books' => $books,
-        ]);
-    }
-
-    public function genres(): void
-    {
-        $entities = $this->genreRepository->getAll();
+        $repository = $this->repositories[$type];
+        $entities = $repository->getAll();
 
         if (!$entities) {
             $this->render('errors/ErrorDB');
@@ -80,37 +61,7 @@ class SearchController extends AppController
         }
 
         $this->render('entities', [
-            'type' => 'genre',
-            'entities' => $entities,
-        ]);
-    }
-
-    public function tags(): void
-    {
-        $entities = $this->tagRepository->getAll();
-
-        if (!$entities) {
-            $this->render('errors/ErrorDB');
-            return;
-        }
-
-        $this->render('entities', [
-            'type' => 'tag',
-            'entities' => $entities,
-        ]);
-    }
-
-    public function authors(): void
-    {
-        $entities = $this->authorRepository->getAll();
-
-        if (!$entities) {
-            $this->render('errors/ErrorDB');
-            return;
-        }
-
-        $this->render('entities', [
-            'type' => 'author',
+            'type' => $type,
             'entities' => $entities,
         ]);
     }

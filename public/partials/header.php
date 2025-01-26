@@ -18,11 +18,11 @@
                         <img src="/public/images/header/home.svg" alt="" class="logo">
                         Home
                     </a>
-                    <a href="/genres" class="nav-link">
+                    <a href="/entities?type=genre" class="nav-link">
                         <img src="/public/images/header/box.svg" alt="" class="logo">
                         Genres
                     </a>
-                    <a href="/tags" class="nav-link">
+                    <a href="/entities?type=tag" class="nav-link">
                         <img src="/public/images/header/tag.svg" alt="" class="logo">
                         Tags
                     </a>
@@ -54,11 +54,11 @@
                     <img src="/public/images/header/home.svg" alt="" class="logo">
                     Home
                 </a>
-                <a href="/genres" class="nav-link">
+                <a href="/entities?type=genre" class="nav-link">
                     <img src="/public/images/header/box.svg" alt="" class="logo">
                     Genres
                 </a>
-                <a href="/tags" class="nav-link">
+                <a href="/entities?type=tag" class="nav-link">
                     <img src="/public/images/header/tag.svg" alt="" class="logo">
                     Tags
                 </a>

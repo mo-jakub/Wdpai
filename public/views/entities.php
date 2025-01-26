@@ -19,7 +19,7 @@
     </div>
     <div class="container column">
         <?php foreach ($entities as $entity): ?>
-            <a href="/<?= $type ?>/<?= $entity->getId() ?>">
+            <a href="/entity?type=<?= $type ?>&id=<?= $entity->getId() ?>">
                 <div class="entity-card">
                     <h3># <?= htmlspecialchars($entity->getName()); ?></h3>
                 </div>

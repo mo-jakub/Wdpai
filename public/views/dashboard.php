@@ -15,7 +15,7 @@
 <main>
 <?php foreach($booksByGenre as $genreData): ?>
     <div class="container">
-        <a href="/genre/<?= $genreData['id'] ?>" class="nav-link">
+        <a href="/entity?type=genre?id=<?= $genreData['id'] ?>" class="nav-link">
             <h2><?= htmlspecialchars($genreData['name']) ?></h2>
         </a>
     </div>

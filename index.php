@@ -12,12 +12,8 @@ Router::get('info', 'DefaultController');
 Router::post('login', 'SecurityController');
 Router::post('register', 'SecurityController');
 Router::get('logout', 'SecurityController');
-Router::get('genre', 'SearchController');
-Router::get('tag', 'SearchController');
-Router::get('author', 'SearchController');
-Router::get('genres', 'SearchController');
-Router::get('tags', 'SearchController');
-Router::get('authors', 'SearchController');
+Router::get('entity', 'SearchController');
+Router::get('entities', 'SearchController');
 Router::get('book', 'BookController');
 
 Router::run($path);
