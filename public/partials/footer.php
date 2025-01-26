@@ -1,10 +1,10 @@
 <footer>
     <div class="container">
         <div class="nav-wrapper">
-            <a href="/info" class="nav-link">
+            <a href="/info?page=about" class="nav-link">
                 <button>About Us</button>
             </a>
-            <a href="/contact" class="nav-link">
+            <a href="/info?page=contact" class="nav-link">
                 <button>Contact</button>
             </a>
         </div>

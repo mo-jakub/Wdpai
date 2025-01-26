@@ -21,11 +21,7 @@ class DefaultController extends AppController
 
     public function info()
     {
-        $this->render('info');
-    }
-
-    public function contact()
-    {
-        $this->render('contact');
+        $page = $_GET['page'] ?? 'about';
+        $this->render('info', ['page' => $page]);
     }
 }
