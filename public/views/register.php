@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - Power Of Knowledge</title>
-    <link rel="stylesheet" type="text/css" href="public/styles/style.css">
+    <link rel="stylesheet" type="text/css" href="/public/styles/style.css">
     <link rel="icon" type="image/png" href="/public/images/logo.svg">
     <script src="/public/scripts/registerValidation.js"></script>
 </head>
@@ -21,7 +21,7 @@ if (isset($_COOKIE['session_token'])) {
 
 <main class="auth-page">
         <div class="auth-info">
-            <img src="public/images/on-page-logo.svg" alt="Logo" class="on-page-logo">
+            <img src="/public/images/on-page-logo.svg" alt="Logo" class="on-page-logo">
             <h2>Join us now.</h2>
             <p>So that you can share your thoughts</p>
             <p>regarding all the books</p>
