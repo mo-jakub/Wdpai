@@ -5,8 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     menuIcon.addEventListener("click", function () {
         dropdownMenu.classList.toggle("active");
     });
-
-    // Zamknij menu, gdy kliknięto poza nim
+    
     document.addEventListener("click", function (e) {
         if (!menuIcon.contains(e.target) && !dropdownMenu.contains(e.target)) {
             dropdownMenu.classList.remove("active");
