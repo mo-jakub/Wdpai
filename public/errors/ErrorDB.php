@@ -10,8 +10,8 @@
 
 <?php include __DIR__ . '/../../public/partials/header.php'; ?>
 
-<main class="auth-page">
-    <div class="auth-info">
+<main class="page">
+    <div class="info">
         <img src="/public/images/on-page-logo.svg" alt="Logo" class="on-page-logo">
         <h3>
             <p>Error of the DB</p>
