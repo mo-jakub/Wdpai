@@ -4,6 +4,20 @@ require 'Routing.php';
 require_once 'DatabaseConnector.php';
 session_start();
 
+if (!isset($_SESSION['userId']) && isset($_COOKIE['session_token'])) {
+    $sessionToken = $_COOKIE['session_token'];
+    $userRepository = new UserRepository();
+
+    $user = $userRepository->getUserBySession($sessionToken);
+
+    if ($user) {
+        $_SESSION['userId'] = $user['id_user'];
+        $_SESSION['username'] = $user['username'];
+    } else {
+        setcookie('session_token', '', time() - 3600, '/');
+    }
+}
+
 $path = trim($_SERVER['REQUEST_URI'], '/');
 $path = parse_url($path, PHP_URL_PATH);
 
