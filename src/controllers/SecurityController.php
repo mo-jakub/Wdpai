@@ -32,6 +32,25 @@ class SecurityController extends AppController
                 $sessionId = bin2hex(random_bytes(32));
                 $expirationDate = (new DateTime())->modify('+1 hour')->format('Y-m-d H:i:s');
                 $this->userRepository->createSession($user['id_user'], $sessionId, $expirationDate);
+
+                $_SESSION['userId'] = $user['id_user'];
+                $_SESSION['username'] = $user['username'];
+
+                $role = $this->userRepository->checkUserRoleByEmail($email);
+                switch ($role) {
+                    case 'admin':
+                        $_SESSION['role'] = 'admin';
+                        break;
+
+                    case 'moderator':
+                        $_SESSION['role'] = 'moderator';
+                        break;
+
+                    default:
+                        $_SESSION['role'] = 'user';
+                        break;
+                }
+
                 setcookie('session_token', $sessionId, time() + 3600, '/');
                 header('Location: /');
                 return;
@@ -49,6 +68,8 @@ class SecurityController extends AppController
         if (isset($_COOKIE['session_token'])) {
             $this->userRepository->deleteSession($_COOKIE['session_token']);
             setcookie('session_token', '', time() - 3600, '/');
+            session_unset();
+            session_destroy();
             header('Location: /');
         }
     }
@@ -110,11 +131,9 @@ class SecurityController extends AppController
                 ]);
                 return;
             }
-
             $this->render('login');
             return;
         }
-
         $this->render('register');
     }
 }
