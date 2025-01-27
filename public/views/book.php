@@ -1,3 +1,4 @@
+<?php /** @var Book $book */ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,16 +65,18 @@
                     <small><?= htmlspecialchars($comment['date']) ?></small>
                     <strong><?= htmlspecialchars($comment['username']) ?>:</strong>
                     <?= htmlspecialchars($comment['comment']) ?>
-                    <?php if (
-                            $_SESSION['username'] === $comment['username'] ||
-                            $_SESSION['role'] === 'admin' ||
-                            $_SESSION['role'] === 'moderator'
-                    ): ?>
-                        <form method="post" action="/deleteComment">
-                            <input type="hidden" name="commentId" value="<?= $comment['id_comment'] ?>">
-                            <input type="hidden" name="username" value="<?= $comment['username'] ?>">
-                            <button type="submit">Delete</button>
-                        </form>
+                    <?php if (isset($_SESSION['username'])): ?>
+                        <?php if (
+                                $_SESSION['username'] === $comment['username'] ||
+                                $_SESSION['role'] === 'admin' ||
+                                $_SESSION['role'] === 'moderator'
+                        ): ?>
+                            <form method="post" action="/deleteComment">
+                                <input type="hidden" name="commentId" value="<?= $comment['id_comment'] ?>">
+                                <input type="hidden" name="username" value="<?= $comment['username'] ?>">
+                                <button type="submit">Delete</button>
+                            </form>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </div>
             <?php endforeach; ?>
