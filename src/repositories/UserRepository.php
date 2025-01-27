@@ -5,6 +5,21 @@ require_once __DIR__ . '/../models/User.php';
 
 class UserRepository extends Repository
 {
+    public function checkUserRoleByEmail(string $email): ?string
+    {
+        $stmt = $this->database->connect()->prepare('
+            SELECT r.role FROM public.users u
+            JOIN public.admins a ON u.id_user = a.id_user
+            JOIN public.roles r ON a.id_role = r.id_role
+            WHERE u.email = :email
+        ');
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $role = $stmt->fetch(PDO::FETCH_COLUMN);
+        return $role ?: null;
+    }
+
     public function getUserByEmail(string $email): ?array
     {
         $stmt = $this->database->connect()->prepare('
