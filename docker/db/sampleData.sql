@@ -177,9 +177,17 @@ INSERT INTO public.users (username, email, hashed_password) VALUES
 ('User4', 'user4@example.com', '$2y$10$bnc1XX3EmcUnu0puWME0UeTDeiF4HOWa3Awk.MoCGp30D/E6309XG'),
 ('User5', 'user5@example.com', '$2y$10$bnc1XX3EmcUnu0puWME0UeTDeiF4HOWa3Awk.MoCGp30D/E6309XG');
 
-INSERT INTO public.admins (name, surname, id_user) VALUES
-('Admin1', 'LastName1', 1),
-('Admin2', 'LastName2', 2);
+INSERT INTO public.user_info (name, surname, id_user) VALUES
+('James', 'Smith', 3),
+('Jack', 'Nobody', 2);
+
+INSERT INTO public.roles (id_role, role) VALUES
+(1, 'admin'),
+(2, 'moderator');
+
+INSERT INTO public.admins (id_role, id_user) VALUES
+(1, 1),
+(2, 2);
 
 INSERT INTO public.tags (tag) VALUES
 ('Magic'),
