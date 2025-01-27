@@ -63,17 +63,22 @@
             <?php foreach ($book->getComments() as $comment): ?>
                 <div class="container column border">
                     <small><?= htmlspecialchars($comment['date']) ?></small>
-                    <strong><?= htmlspecialchars($comment['username']) ?>:</strong>
+                    <strong>
+                        <a href="/user/<?= htmlspecialchars($comment['id_user']) ?>" class="nav-link">
+                            <img src="/public/images/user.svg" alt="" class="logo">
+                            <?= htmlspecialchars($comment['username']) ?>:
+                        </a>
+                    </strong>
                     <?= htmlspecialchars($comment['comment']) ?>
-                    <?php if (isset($_SESSION['username'])): ?>
+                    <?php if (isset($_SESSION['userId'])): ?>
                         <?php if (
-                                $_SESSION['username'] === $comment['username'] ||
+                                $_SESSION['userId'] === $comment['id_user'] ||
                                 $_SESSION['role'] === 'admin' ||
                                 $_SESSION['role'] === 'moderator'
                         ): ?>
                             <form method="post" action="/deleteComment">
                                 <input type="hidden" name="commentId" value="<?= $comment['id_comment'] ?>">
-                                <input type="hidden" name="username" value="<?= $comment['username'] ?>">
+                                <input type="hidden" name="userId" value="<?= $comment['id_user'] ?>">
                                 <button type="submit">Delete</button>
                             </form>
                         <?php endif; ?>

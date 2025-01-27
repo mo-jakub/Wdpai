@@ -98,7 +98,7 @@ class BookRepository extends Repository
 
 
         $commentsStmt = $this->database->connect()->prepare("
-            SELECT c.id_comment, c.comment, c.date, u.username 
+            SELECT c.id_comment, c.comment, c.date, c.id_user, u.username 
             FROM public.comments c 
             LEFT JOIN public.users u ON c.id_user = u.id_user 
             WHERE c.id_book = :id

@@ -31,6 +31,10 @@
                             <img src="/public/images/header/logout.svg" alt="" class="logo">
                             Logout
                         </a>
+                        <a href="/user/<?= htmlspecialchars($_SESSION['userId']) ?>" class="nav-link">
+                            <img src="/public/images/user.svg" alt="" class="logo">
+                            <?= htmlspecialchars($_SESSION['username']) ?>
+                        </a>
                     <?php else: ?>
                         <a href="/login" class="nav-link">
                             <img src="/public/images/header/login.svg" alt="" class="logo">
@@ -71,6 +75,10 @@
                     <a href="/logout" class="nav-link">
                         <img src="/public/images/header/logout.svg" alt="" class="logo">
                         Logout
+                    </a>
+                    <a href="/user/<?= htmlspecialchars($_SESSION['userId']) ?>" class="nav-link">
+                        <img src="/public/images/user.svg" alt="" class="logo">
+                        <?= htmlspecialchars($_SESSION['username']) ?>
                     </a>
                 <?php else: ?>
                     <a href="/login" class="nav-link">

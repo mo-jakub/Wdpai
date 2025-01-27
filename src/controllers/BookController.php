@@ -49,7 +49,7 @@ class BookController extends AppController
 
     public function deleteComment(): void
     {
-        if (!isset($_SESSION['role']) || (($_SESSION['role'] === 'user') && $_POST['username'] !== $_SESSION['username'])) {
+        if (!isset($_SESSION['role']) || (($_SESSION['role'] === 'user') && (int) $_POST['userId'] !== $_SESSION['userId'])) {
             header('Location: /');
             exit();
         }
