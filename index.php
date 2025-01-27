@@ -2,6 +2,7 @@
 
 require 'Routing.php';
 require_once 'DatabaseConnector.php';
+session_start();
 
 $path = trim($_SERVER['REQUEST_URI'], '/');
 $path = parse_url($path, PHP_URL_PATH);
@@ -15,5 +16,7 @@ Router::get('logout', 'SecurityController');
 Router::get('entity', 'SearchController');
 Router::get('entities', 'SearchController');
 Router::get('book', 'BookController');
+Router::post('addComment', 'BookController');
+Router::post('deleteComment', 'BookController');
 
 Router::run($path);

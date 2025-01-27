@@ -74,7 +74,7 @@ class BookRepository extends Repository
         $tagsStmt->execute();
         $book->setTags($tagsStmt->fetchAll(PDO::FETCH_ASSOC));
 
-    
+
         $authorsStmt = $this->database->connect()->prepare("
             SELECT a.id_author, a.author 
             FROM public.book_authors ba 
@@ -85,7 +85,7 @@ class BookRepository extends Repository
         $authorsStmt->execute();
         $book->setAuthors($authorsStmt->fetchAll(PDO::FETCH_ASSOC));
 
-    
+
         $genresStmt = $this->database->connect()->prepare("
             SELECT g.id_genre, g.genre 
             FROM public.book_genres bg 
@@ -97,10 +97,8 @@ class BookRepository extends Repository
         $book->setGenres($genresStmt->fetchAll(PDO::FETCH_ASSOC));
 
 
-    
-        // Pobierz komentarze książki
         $commentsStmt = $this->database->connect()->prepare("
-            SELECT c.comment, c.date, u.username 
+            SELECT c.id_comment, c.comment, c.date, u.username 
             FROM public.comments c 
             LEFT JOIN public.users u ON c.id_user = u.id_user 
             WHERE c.id_book = :id
@@ -113,18 +111,28 @@ class BookRepository extends Repository
         $this->database->disconnect();
         return $book;
     }
-    
 
-    public function addComment(int $bookId, int $userId, string $comment): void
+
+    public function createComment(string $comment, int $bookId, int $userId): void
     {
-        $stmt = $this->database->connect()->prepare("
+        $stmt = $this->database->connect()->prepare('
             INSERT INTO public.comments (comment, id_user, id_book) 
             VALUES (:comment, :id_user, :id_book)
-        ");
+        ');
         $stmt->bindParam(':comment', $comment, PDO::PARAM_STR);
         $stmt->bindParam(':id_user', $userId, PDO::PARAM_INT);
         $stmt->bindParam(':id_book', $bookId, PDO::PARAM_INT);
         $stmt->execute();
         $this->database->disconnect();
-    }    
+    }
+
+    public function deleteComment(int $commentId): void
+    {
+        $stmt = $this->database->connect()->prepare('
+            DELETE FROM public.comments WHERE id_comment = :id_comment
+        ');
+        $stmt->bindParam(':id_comment', $commentId, PDO::PARAM_INT);
+        $stmt->execute();
+        $this->database->disconnect();
+    }
 }

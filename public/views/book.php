@@ -11,17 +11,15 @@
     
 <?php include 'public/partials/header.php'; ?>
 
-<main>
-    <div class="book-details">
-        <div class="cover">
-            <img src="https://random.imagecdn.app/700/700" class="book-placeholder" alt="<?= htmlspecialchars($book->getTitle()) ?>">
-        </div>
-        <div class="details">
+<main class="container">
+    <div class="container">
+        <img src="https://random.imagecdn.app/700/700" class="book-placeholder" alt="<?= htmlspecialchars($book->getTitle()) ?>">
+        <div class="container column border">
             <h2>Title: <?= htmlspecialchars($book->getTitle()) ?></h2>
             <p>
                 <strong>
                     <a href="/authors" class="nav-link">Author(s)</a>
-                </strong> 
+                </strong>
                 <?php foreach ($book->getAuthors() as $author): ?>
                     <a href="/author/<?= htmlspecialchars($author['id_author']) ?>" class="nav-link"><?= htmlspecialchars($author['author']) ?></a>
                 <?php endforeach; ?>
@@ -29,50 +27,59 @@
             <p>
                 <strong>
                     <a href="/genres" class="nav-link">Genres</a>
-                </strong> 
+                </strong>
                 <?php foreach ($book->getGenres() as $genre): ?>
                     <a href="/genre/<?= htmlspecialchars($genre['id_genre']) ?>" class="nav-link"><?= htmlspecialchars($genre['genre']) ?></a>
                 <?php endforeach; ?>
             </p>
         </div>
     </div>
-    <div class="tags">
-        <p>
+    <div class="container">
+        <div class="column border">
             <strong>
                 <a href="/tags" class="nav-link">Tags</a>
             </strong>
-        </p>
-        <ul>
             <?php foreach ($book->getTags() as $tag): ?>
-                <li><a href="/tag/<?= htmlspecialchars($tag['id_tag']) ?>" class="nav-link"><?= htmlspecialchars($tag['tag']) ?></a></li>
+                <a href="/tag/<?= htmlspecialchars($tag['id_tag']) ?>" class="nav-link"><?= htmlspecialchars($tag['tag']) ?></a>
             <?php endforeach; ?>
-        </ul>
+        </div>
+        <div class="container column border">
+            <strong>Description:</strong>
+            <?= nl2br(htmlspecialchars($book->getDescription())) ?>
+        </div>
     </div>
-    <div class="desc">
-        <p><strong>Description:</strong></p>
-        <p><?= nl2br(htmlspecialchars($book->getDescription())) ?></p>
-    </div>
-    <div class="comments">
+    <div class="container column">
         <h3>Comments:</h3>
+        <div class="container column border">
+            <h3>Add a comment:</h3>
+            <form method="post" action="/addComment">
+                <textarea name="comment" placeholder="Write your comment here..." required></textarea>
+                <input type="hidden" name="bookId" value="<?= $book->getId() ?>">
+                <button type="submit">Submit</button>
+            </form>
+        </div>
         <?php if (count($book->getComments()) > 0): ?>
-            <ul>
-                <?php foreach ($book->getComments() as $comment): ?>
-                    <li>
-                        <p><strong><?= htmlspecialchars($comment['username']) ?>:</strong> <?= htmlspecialchars($comment['comment']) ?></p>
-                        <p><small><?= htmlspecialchars($comment['date']) ?></small></p>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
+            <?php foreach ($book->getComments() as $comment): ?>
+                <div class="container column border">
+                    <small><?= htmlspecialchars($comment['date']) ?></small>
+                    <strong><?= htmlspecialchars($comment['username']) ?>:</strong>
+                    <?= htmlspecialchars($comment['comment']) ?>
+                    <?php if (
+                            $_SESSION['username'] === $comment['username'] ||
+                            $_SESSION['role'] === 'admin' ||
+                            $_SESSION['role'] === 'moderator'
+                    ): ?>
+                        <form method="post" action="/deleteComment">
+                            <input type="hidden" name="commentId" value="<?= $comment['id_comment'] ?>">
+                            <input type="hidden" name="username" value="<?= $comment['username'] ?>">
+                            <button type="submit">Delete</button>
+                        </form>
+                    <?php endif; ?>
+                </div>
+            <?php endforeach; ?>
         <?php else: ?>
             <p>No comments yet. Be the first to comment!</p>
         <?php endif; ?>
-    </div>
-    <div class="add-comment">
-        <h3>Add a comment:</h3>
-        <form method="post" action="/book/<?= $book->getId() ?>/comment">
-            <textarea name="comment" placeholder="Write your comment here..." required></textarea>
-            <button type="submit">Submit</button>
-        </form>
     </div>
 </main>
 
