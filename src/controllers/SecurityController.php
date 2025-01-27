@@ -28,13 +28,13 @@ class SecurityController extends AppController
             }
 
             $user = $this->userRepository->getUserByEmail($email);
-            if ($user && password_verify($password, $user['hashed_password'])) {
+            if ($user && password_verify($password, $user->getHashedPassword())) {
                 $sessionId = bin2hex(random_bytes(32));
                 $expirationDate = (new DateTime())->modify('+1 hour')->format('Y-m-d H:i:s');
-                $this->userRepository->createSession($user['id_user'], $sessionId, $expirationDate);
+                $this->userRepository->createSession($user->getId(), $sessionId, $expirationDate);
 
-                $_SESSION['userId'] = $user['id_user'];
-                $_SESSION['username'] = $user['username'];
+                $_SESSION['userId'] = $user->getId();
+                $_SESSION['username'] = $user->getUsername();
 
                 $role = $this->userRepository->checkUserRoleByEmail($email);
                 switch ($role) {

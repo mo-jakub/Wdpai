@@ -2,15 +2,18 @@
 
 require_once 'AppController.php';
 require_once __DIR__ . '/../repositories/BookRepository.php';
+require_once __DIR__ . '/../repositories/CommentRepository.php';
 
 class BookController extends AppController
 {
     private BookRepository $bookRepository;
+    private CommentRepository $commentRepository;
 
     public function __construct()
     {
         parent::__construct();
         $this->bookRepository = new BookRepository();
+        $this->commentRepository = new CommentRepository();
     }
 
     public function book($id): void
@@ -39,7 +42,7 @@ class BookController extends AppController
             if (empty($comment))
                 return;
 
-            $this->bookRepository->createComment($comment, $bookId, $_SESSION['userId']);
+            $this->commentRepository->createComment($comment, $bookId, $_SESSION['userId']);
             header("Location: /book/$bookId");
         } catch (Exception $e) {
             $this->render('errors/ErrorDB');
@@ -56,7 +59,7 @@ class BookController extends AppController
 
         $commentId = $_POST['commentId'];
 
-        $this->bookRepository->deleteComment($commentId);
+        $this->commentRepository->deleteComment($commentId);
         header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
 }

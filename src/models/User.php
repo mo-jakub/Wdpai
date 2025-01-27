@@ -6,16 +6,7 @@ class User {
     private string $email;
     private string $hashed_password;
 
-    public function __construct(
-        string $username,
-        string $email,
-        string $hashed_password
-    )
-    {
-        $this->username = $username;
-        $this->email = $email;
-        $this->hashed_password = $hashed_password;
-    }
+    public function __construct() {}
 
     public function getId()
     {

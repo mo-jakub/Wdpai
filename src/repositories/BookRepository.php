@@ -2,7 +2,6 @@
 
 require_once __DIR__ . '/Repository.php';
 require_once __DIR__ . '/../models/Book.php';
-require_once __DIR__ . '/../models/Genre.php';
 
 class BookRepository extends Repository
 {
@@ -57,8 +56,7 @@ class BookRepository extends Repository
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Book');
-    
-        /** @var Book $book */
+
         $book = $stmt->fetch();
         if (!$book) {
             return null;
@@ -110,29 +108,5 @@ class BookRepository extends Repository
     
         $this->database->disconnect();
         return $book;
-    }
-
-
-    public function createComment(string $comment, int $bookId, int $userId): void
-    {
-        $stmt = $this->database->connect()->prepare('
-            INSERT INTO public.comments (comment, id_user, id_book) 
-            VALUES (:comment, :id_user, :id_book)
-        ');
-        $stmt->bindParam(':comment', $comment, PDO::PARAM_STR);
-        $stmt->bindParam(':id_user', $userId, PDO::PARAM_INT);
-        $stmt->bindParam(':id_book', $bookId, PDO::PARAM_INT);
-        $stmt->execute();
-        $this->database->disconnect();
-    }
-
-    public function deleteComment(int $commentId): void
-    {
-        $stmt = $this->database->connect()->prepare('
-            DELETE FROM public.comments WHERE id_comment = :id_comment
-        ');
-        $stmt->bindParam(':id_comment', $commentId, PDO::PARAM_INT);
-        $stmt->execute();
-        $this->database->disconnect();
     }
 }

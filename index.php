@@ -18,5 +18,6 @@ Router::get('entities', 'SearchController');
 Router::get('book', 'BookController');
 Router::post('addComment', 'BookController');
 Router::post('deleteComment', 'BookController');
+Router::get('user', 'UserController');
 
 Router::run($path);

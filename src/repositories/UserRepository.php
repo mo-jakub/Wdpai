@@ -20,15 +20,33 @@ class UserRepository extends Repository
         return $role ?: null;
     }
 
-    public function getUserByEmail(string $email): ?array
+    public function getUserByEmail(string $email): ?User
     {
         $stmt = $this->database->connect()->prepare('
-            SELECT * FROM public.users WHERE email = :email
+            SELECT id_user AS id, username, email, hashed_password
+            FROM public.users
+            WHERE email = :email
         ');
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
         $stmt->execute();
 
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'User');
+        $user = $stmt->fetch();
+        return $user ?: null;
+    }
+
+    public function getUserById(int $id): ?User
+    {
+        $stmt = $this->database->connect()->prepare('
+            SELECT id_user AS id, username
+            FROM public.users
+            WHERE id_user = :id
+        ');
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'User');
+        $user = $stmt->fetch();
         return $user ?: null;
     }
 
