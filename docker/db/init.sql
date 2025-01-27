@@ -19,10 +19,9 @@ CREATE TABLE public.admins (
 );
 
 CREATE TABLE public.user_info (
-   id_info SERIAL PRIMARY KEY,
    name VARCHAR(100),
    surname VARCHAR(100),
-   id_user INTEGER NOT NULL,
+   id_user INTEGER NOT NULL UNIQUE ,
    FOREIGN KEY (id_user) REFERENCES public.users(id_user)
 );
 
@@ -30,7 +29,7 @@ CREATE TABLE public.sessions (
     id_session SERIAL PRIMARY KEY,
     session_token VARCHAR(255) NOT NULL UNIQUE,
     id_user INTEGER NOT NULL,
-    expiration_date TIMESTAMP WITH TIME ZONE NOT NULL,
+    expiration_date TIMESTAMP NOT NULL,
     FOREIGN KEY (id_user) REFERENCES public.users(id_user)
 );
 
@@ -88,3 +87,19 @@ CREATE TABLE public.book_authors (
     FOREIGN KEY (id_book) REFERENCES public.books(id_book),
     FOREIGN KEY (id_author) REFERENCES public.authors(id_author)
 );
+
+-- Function to delete expired sessions
+CREATE OR REPLACE FUNCTION delete_expired_sessions()
+RETURNS void AS $$
+BEGIN
+DELETE FROM public.sessions
+WHERE expiration_date < NOW();
+END;
+$$ LANGUAGE plpgsql;
+
+-- Trigger to execute the function every hour
+CREATE EXTENSION IF NOT EXISTS pg_cron;
+
+SELECT cron.schedule('delete_expired_sessions', '0 */1 * * *', $$
+    SELECT delete_expired_sessions();
+$$);
