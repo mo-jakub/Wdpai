@@ -1,21 +1,21 @@
 <?php
 
-require_once "config.php";
-
 class DatabaseConnector {
     private $username;
     private $password;
     private $host;
     private $database;
+    private $port;
     private static $instance = null;
     private $connection = null;
 
     private function __construct()
     {
-        $this->username = USERNAME;
-        $this->password = PASSWORD;
-        $this->host = HOST;
-        $this->database = DATABASE;
+        $this->username = $_ENV['POSTGRES_USER'];
+        $this->password = $_ENV['POSTGRES_PASSWORD'];
+        $this->host = 'db'; //name of docker service
+        $this->database = $_ENV['POSTGRES_DB'];
+        $this->port = $_ENV['DB_PORT'];
     }
 
     public static function getInstance()
@@ -31,7 +31,7 @@ class DatabaseConnector {
         if ($this->connection === null) {
             try {
                 $this->connection = new PDO(
-                    "pgsql:host=$this->host;port=5432;dbname=$this->database",
+                    "pgsql:host=$this->host;port=$this->port;dbname=$this->database",
                     $this->username,
                     $this->password
                 );
