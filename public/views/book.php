@@ -19,18 +19,18 @@
             <h2>Title: <?= htmlspecialchars($book->getTitle()) ?></h2>
             <p>
                 <strong>
-                    <a href="/authors" class="nav-link">Author(s)</a>
+                    <a href="/entities?type=author" class="nav-link">Author(s)</a>
                 </strong>
                 <?php foreach ($book->getAuthors() as $author): ?>
-                    <a href="/author/<?= htmlspecialchars($author['id_author']) ?>" class="nav-link"><?= htmlspecialchars($author['author']) ?></a>
+                    <a href="/entity?type=author&id=<?= htmlspecialchars($author['id_author']) ?>" class="nav-link"><?= htmlspecialchars($author['author']) ?></a>
                 <?php endforeach; ?>
             </p>
             <p>
                 <strong>
-                    <a href="/genres" class="nav-link">Genres</a>
+                    <a href="/entities?type=genre" class="nav-link">Genres</a>
                 </strong>
                 <?php foreach ($book->getGenres() as $genre): ?>
-                    <a href="/genre/<?= htmlspecialchars($genre['id_genre']) ?>" class="nav-link"><?= htmlspecialchars($genre['genre']) ?></a>
+                    <a href="/entity?type=genre&id=<?= htmlspecialchars($genre['id_genre']) ?>" class="nav-link"><?= htmlspecialchars($genre['genre']) ?></a>
                 <?php endforeach; ?>
             </p>
         </div>
@@ -38,10 +38,10 @@
     <div class="container">
         <div class="column border">
             <strong>
-                <a href="/tags" class="nav-link">Tags</a>
+                <a href="/entities?type=tag" class="nav-link">Tags</a>
             </strong>
             <?php foreach ($book->getTags() as $tag): ?>
-                <a href="/tag/<?= htmlspecialchars($tag['id_tag']) ?>" class="nav-link"><?= htmlspecialchars($tag['tag']) ?></a>
+                <a href="/entity?type=tag&id=<?= htmlspecialchars($tag['id_tag']) ?>" class="nav-link"><?= htmlspecialchars($tag['tag']) ?></a>
             <?php endforeach; ?>
         </div>
         <div class="container column border">
