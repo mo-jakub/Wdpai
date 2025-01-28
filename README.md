@@ -2,58 +2,19 @@
 
 ## Overview
 The "Power of Knowledge" project is a simple web application.
-It features a clean, responsive design, with functionality to highlight books and provide navigation through genres.
+It features a clean, responsive design, with functionality to highlight books and provide navigation.
 
 ## Features
 - **Responsive Navigation:** Links to Home, Genre, and Tags sections.
 - **Search Bar:** Allows users to search for books by title or author.
-- **Book Grid:** Displays books with images, darkening on hover.
+- **Book Grid:** Displays books sorted by genre.
 - **Footer:** Links to About Us, Contact, and social media.
 
-## Project Structure
-### HTML
-- **Dashboard:** Main page for displaying genres and books. **(Uses PHP)**
-- **Login Page:** Form to log into an account.
-- **Register Page:** Form to create an account.
-
-### CSS
-- **Style:** CSS styling for the HTML pages to keep the design consistent and straightforward.
-
-### PHP
-- **AppControllers:** PHP controllers to help in rendering the pages.
-- **DatabaseConnector:** PHP connector to access the database.
-- **Routing and index:** They choose appropriate controller to render specific pages.
-
-## Folder Structure
-project/    
-├── docker/     
-│   ├── db/     
-│   │   ├── Dockerfile  
-│   │   └── init.sql    
-│   ├── nginx/  
-│   │   ├── Dockerfile  
-│   │   └── nginx.conf  
-│   └── php/    
-│       └── Dockerfile  
-├── public/     
-│   ├── images/     
-│   ├── partials/   
-│   │   ├── footer.php  
-│   │   └── header.php  
-│   ├── styles/     
-│   │   └── style.css   
-│   └── views/  
-│       ├── dashboard.php   
-│       ├── login.php   
-│       └── register.php    
-├── src/    
-│   └── controllers/    
-│       ├── AppController.php   
-│       ├── DefaultController.php   
-│       └── SecurityController.php  
-├── config.php  
-├── DatabaseConnector.php   
-├── docker-compose.yml  
-├── index.php   
-├── README.md   
-└── Routing.php 
+## How to use it
+1. Clone or otherwise download the files.
+2. Use `docker compose up --build` in the project folder.
+3. When the project is running you can:
+   1. connect to pgadmin (a way to access the database) by url: http://localhost:5050
+      1. the necessary data to login is found in .env file
+      2. if you're creating a site based on this project, you should consider changing the information there
+   2. connect to the site itself by url: http://localhost:8080
