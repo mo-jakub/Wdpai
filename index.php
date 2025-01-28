@@ -34,5 +34,6 @@ Router::get('book', 'BookController');
 Router::post('addComment', 'BookController');
 Router::post('deleteComment', 'BookController');
 Router::get('user', 'UserController');
+Router::post('extendSession', 'SecurityController');
 
 Router::run($path);
