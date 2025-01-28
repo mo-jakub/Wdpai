@@ -86,4 +86,18 @@ class UserRepository extends Repository
 
         return (bool) $stmt->fetchColumn();
     }
+
+    public function getUserBySession(string $sessionToken): ?array
+    {
+        $stmt = $this->database->connect()->prepare('
+            SELECT u.* FROM public.users u
+            JOIN public.sessions s ON u.id_user = s.id_user
+            WHERE s.session_token = :session_token AND s.expiration_date > NOW()
+        ');
+        $stmt->bindParam(':session_token', $sessionToken, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $user ?: null;
+    }
 }
