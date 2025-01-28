@@ -38,7 +38,7 @@ class UserRepository extends Repository
     public function getUserById(int $id): ?User
     {
         $stmt = $this->database->connect()->prepare('
-            SELECT id_user AS id, username
+            SELECT id_user AS id, username, email
             FROM public.users
             WHERE id_user = :id
         ');

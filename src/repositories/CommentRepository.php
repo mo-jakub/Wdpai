@@ -28,9 +28,10 @@ class CommentRepository extends Repository
     public function getCommentsByUserId(int $userId): ?array
     {
         $commentsStmt = $this->database->connect()->prepare("
-            SELECT id_comment, id_book, comment, date
-            FROM public.comments
-            WHERE id_user = :id
+            SELECT c.id_comment, c.id_book, c.comment, c.date, b.title
+            FROM public.comments c
+            JOIN public.books b ON c.id_book = b.id_book
+            WHERE c.id_user = :id
             ORDER BY date DESC
         ");
         $commentsStmt->bindParam(':id', $userId, PDO::PARAM_INT);
