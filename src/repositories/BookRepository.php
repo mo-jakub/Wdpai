@@ -8,27 +8,40 @@ class BookRepository extends Repository
     public function getBooksGroupedByGenre(): array
     {
         $stmt = $this->database->connect()->prepare("
+        WITH ranked_books AS (
             SELECT 
                 g.id_genre,
                 g.genre,
-                json_agg(
-                    json_build_object(
-                        'id', b.id_book,
-                        'title', b.title,
-                        'description', b.description
-                    )
-                ) AS books
+                b.id_book,
+                b.title,
+                b.description,
+                ROW_NUMBER() OVER (PARTITION BY g.id_genre ORDER BY b.id_book ASC) AS row_number
             FROM 
                 public.books b
             INNER JOIN 
                 public.book_genres bg ON b.id_book = bg.id_book
             INNER JOIN 
                 public.genres g ON bg.id_genre = g.id_genre
-            GROUP BY 
-                g.id_genre, g.genre
-            ORDER BY 
-                g.genre;
-        ");
+        )
+        SELECT 
+            id_genre,
+            genre,
+            json_agg(
+                json_build_object(
+                    'id', id_book,
+                    'title', title,
+                    'description', description
+                )
+            ) AS books
+        FROM 
+            ranked_books
+        WHERE 
+            row_number <= 6
+        GROUP BY 
+            id_genre, genre
+        ORDER BY 
+            genre;
+    ");
 
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -41,7 +54,7 @@ class BookRepository extends Repository
                 'books' => json_decode($row['books'], true)
             ];
         }
-        
+
         $this->database->disconnect();
         return $groupedBooks;
     }

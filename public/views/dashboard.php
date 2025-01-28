@@ -27,6 +27,9 @@
                     <img src="https://random.imagecdn.app/700/700" alt="<?= htmlspecialchars($book['title']) ?>" class="book-placeholder">
                 </a>
             <?php endforeach; ?>
+            <a href="/entity?type=genre?id=<?= $genreData['id'] ?>" class="nav-link">
+                <h2>See More <?= htmlspecialchars($genreData['name']) ?> Books</h2>
+            </a>
         </div>
     </div>
 </div>
