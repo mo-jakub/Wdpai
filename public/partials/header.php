@@ -1,4 +1,5 @@
 <script src="/public/scripts/menu.js"></script>
+<script src="/public/scripts/sessionRenew.js"></script>
 <header>
     <div class="container">
         <div class="mobile-header container">
