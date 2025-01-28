@@ -65,41 +65,6 @@ class UserRepository extends Repository
         $stmt->execute();
     }
 
-    public function createSession(int $userId, string $sessionId, string $expirationDate)
-    {
-        $stmt = $this->database->connect()->prepare('
-            INSERT INTO public.sessions (session_token, id_user, expiration_date)
-            VALUES (:session_token, :id_user, :expiration_date)
-        ');
-        $stmt->bindParam(':session_token', $sessionId, PDO::PARAM_STR);
-        $stmt->bindParam(':id_user', $userId, PDO::PARAM_INT);
-        $stmt->bindParam(':expiration_date', $expirationDate, PDO::PARAM_STR);
-        $stmt->execute();
-    }
-
-    public function deleteSession(string $sessionId)
-    {
-        $stmt = $this->database->connect()->prepare('
-            DELETE FROM public.sessions WHERE session_token = :session_token
-        ');
-        $stmt->bindParam(':session_token', $sessionId, PDO::PARAM_STR);
-        $stmt->execute();
-    }
-
-    public function getUserBySession(string $sessionId): ?array
-    {
-        $stmt = $this->database->connect()->prepare('
-            SELECT u.* FROM public.users u
-            JOIN public.sessions s ON u.id_user = s.id_user
-            WHERE s.session_token = :session_token AND s.expiration_date > NOW()
-        ');
-        $stmt->bindParam(':session_token', $sessionId, PDO::PARAM_STR);
-        $stmt->execute();
-
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $user ?: null;
-    }
-
     public function usernameExists(string $username): bool
     {
         $stmt = $this->database->connect()->prepare('

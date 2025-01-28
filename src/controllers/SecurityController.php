@@ -3,15 +3,18 @@
 require_once 'AppController.php';
 require_once __DIR__ . '/../models/User.php';
 require_once __DIR__ . '/../repositories/UserRepository.php';
+require_once __DIR__ . '/../repositories/SessionRepository.php';
 
 class SecurityController extends AppController
 {
     private UserRepository $userRepository;
+    private SessionRepository $sessionRepository;
 
     public function __construct()
     {
         parent::__construct();
         $this->userRepository = new UserRepository();
+        $this->sessionRepository = new SessionRepository();
     }
 
     public function login(): void
@@ -31,7 +34,7 @@ class SecurityController extends AppController
             if ($user && password_verify($password, $user->getHashedPassword())) {
                 $sessionId = bin2hex(random_bytes(32));
                 $expirationDate = (new DateTime())->modify('+1 hour')->format('Y-m-d H:i:s');
-                $this->userRepository->createSession($user->getId(), $sessionId, $expirationDate);
+                $this->sessionRepository->createSession($user->getId(), $sessionId, $expirationDate);
 
                 $_SESSION['userId'] = $user->getId();
                 $_SESSION['username'] = $user->getUsername();
@@ -66,7 +69,7 @@ class SecurityController extends AppController
     public function logout(): void
     {
         if (isset($_COOKIE['session_token'])) {
-            $this->userRepository->deleteSession($_COOKIE['session_token']);
+            $this->sessionRepository->deleteSession($_COOKIE['session_token']);
             setcookie('session_token', '', time() - 3600, '/');
             session_unset();
             session_destroy();
@@ -138,5 +141,20 @@ class SecurityController extends AppController
             return;
         }
         $this->render('register');
+    }
+
+    public function extendSession(): void
+    {
+        if (isset($_SESSION['userId']) && isset($_COOKIE['session_token'])) {
+            $sessionToken = $_COOKIE['session_token'];
+            $session = $this->sessionRepository->getSessionByToken($sessionToken);
+
+            if ($session && new DateTime() < new DateTime($session['expiration_date'])) {
+                $newExpirationDate = (new DateTime())->modify('+1 hour')->format('Y-m-d H:i:s');
+                $this->sessionRepository->updateSessionExpiration($sessionToken, $newExpirationDate);
+
+                setcookie('session_token', $sessionToken, time() + 3600, '/');
+            }
+        }
     }
 }
