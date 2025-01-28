@@ -13,6 +13,7 @@ if (!isset($_SESSION['userId']) && isset($_COOKIE['session_token'])) {
     if ($user) {
         $_SESSION['userId'] = $user['id_user'];
         $_SESSION['username'] = $user['username'];
+        $_SESSION['role'] = $userRepository->checkUserRoleByEmail($user['email']) ?? 'user';
     } else {
         setcookie('session_token', '', time() - 3600, '/');
     }
