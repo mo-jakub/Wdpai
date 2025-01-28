@@ -20,7 +20,7 @@
         <h4>Username: <?= htmlspecialchars($user->getUsername()) ?></h4>
         <h4>Name: <?= htmlspecialchars($userInfo['name'] ?? 'no name given') ?></h4>
         <h4>Surname: <?= htmlspecialchars($userInfo['surname'] ?? 'no surname given') ?></h4>
-        <h4>Description: <?= htmlspecialchars($userInfo['surname'] ?? 'no surname given') ?></h4>
+        <h4>Summary: <?= htmlspecialchars($userInfo['summary'] ?? 'no summary given') ?></h4>
     </div>
 
     <div class="container
@@ -40,7 +40,7 @@
         <div class="container column">
 <?php switch ($action): ?>
 <?php case '': ?>
-    <?php if ($_SESSION['userId'] === $user->getId()): ?>
+    <?php if (isset($_SESSION['userId']) && $_SESSION['userId'] === $user->getId()): ?>
         <h3>Your comments:</h3>
     <?php else: ?>
         <h3><?= htmlspecialchars($user->getUsername()) ?>'s comments:</h3>

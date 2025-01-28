@@ -19,10 +19,11 @@ CREATE TABLE public.admins (
 );
 
 CREATE TABLE public.user_info (
-   name VARCHAR(100),
-   surname VARCHAR(100),
-   id_user INTEGER NOT NULL UNIQUE ,
-   FOREIGN KEY (id_user) REFERENCES public.users(id_user)
+    name VARCHAR(100),
+    surname VARCHAR(100),
+    summary VARCHAR(100),
+    id_user INTEGER NOT NULL UNIQUE,
+    FOREIGN KEY (id_user) REFERENCES public.users(id_user)
 );
 
 CREATE TABLE public.sessions (
