@@ -212,12 +212,6 @@ button:hover {
     width: 90%;
 }
 
-.row {
-    display: grid;
-    grid-template-columns: 1fr 4fr;
-    align-items: baseline;
-}
-
 .menu {
     top: 5rem;
     background-color: #282A37;
@@ -234,7 +228,12 @@ button:hover {
 }
 
 .page-with-menu {
-    margin-left: -20%;
+    margin-left: -10%;
+}
+
+select {
+    background-color: #333851;
+    color: white;
 }
 
 th, td {
@@ -242,11 +241,8 @@ th, td {
     max-width: 10rem;
 }
 
-@media print {
-    header,
-    footer {
-        display: none;
-    }
+th input {
+    padding: 0;
 }
 
 .mobile-header {

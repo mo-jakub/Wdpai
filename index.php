@@ -35,5 +35,10 @@ Router::post('addComment', 'BookController');
 Router::post('deleteComment', 'BookController');
 Router::get('user', 'UserController');
 Router::post('extendSession', 'SecurityController');
+Router::get('administration', 'AdminController');
+Router::post('addEntity', 'AdminController');
+Router::post('deleteEntity', 'AdminController');
+Router::post('editEntity', 'AdminController');
+Router::post('addBook', 'AdminController');
 
 Router::run($path);

@@ -134,4 +134,56 @@ class BookRepository extends Repository
         $this->database->disconnect();
         return $books;
     }
+
+    public function addBook(string $title, string $description): bool
+    {
+        try {
+            $stmt = $this->database->connect()->prepare("
+                INSERT INTO public.books (title, description)
+                VALUES (:title, :description)
+            ");
+            $stmt->bindParam(':title', $title, PDO::PARAM_STR);
+            $stmt->bindParam(':description', $description, PDO::PARAM_STR);
+            $stmt->execute();
+            $this->database->disconnect();
+            return $stmt->rowCount() > 0;
+        } catch (PDOException $e) {
+            error_log("Error adding book with title '{$title}': " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function deleteBook(int $id): bool
+    {
+        try {
+            $stmt = $this->database->connect()->prepare("
+            DELETE FROM public.books 
+            WHERE id_book = :id
+        ");
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+
+            $stmt->execute();
+            $this->database->disconnect();
+
+            return $stmt->rowCount() > 0;
+        } catch (PDOException $e) {
+            error_log("Error deleting book with ID {$id}: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function getBookId(string $title, string $description): int
+    {
+        $stmt = $this->database->connect()->prepare("
+            SELECT id_book
+            FROM public.books
+            WHERE title = :title AND description = :description
+        ");
+        $stmt->bindParam(':title', $title, PDO::PARAM_STR);
+        $stmt->bindParam(':description', $description, PDO::PARAM_STR);
+        $stmt->execute();
+        $id = $stmt->fetch(PDO::FETCH_COLUMN);
+        $this->database->disconnect();
+        return $id;
+    }
 }

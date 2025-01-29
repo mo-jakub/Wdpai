@@ -68,7 +68,7 @@ abstract class EntityRepository extends Repository
         return $books ?: null;
     }
 
-    public function deleteEntityById(int $id): bool
+    public function deleteEntity(int $id): bool
     {
         try {
             $stmt = $this->database->connect()->prepare("
@@ -120,6 +120,25 @@ abstract class EntityRepository extends Repository
             return $stmt->rowCount() > 0;
         } catch (PDOException $e) {
             error_log("Error editing entity with ID {$id}: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function addRelationBookEntity(int $BookId, int $EntityId): bool
+    {
+        $relationTable = 'book_' . $this->tableName;
+        $relationIdField = "id_" . $this->entityNameField;
+        try {
+            $stmt = $this->database->connect()->prepare("
+            INSERT INTO public.{$relationTable} (id_book, {$relationIdField})
+            VALUES (:BookId, :EntityId)");
+            $stmt->bindParam(':BookId', $BookId, PDO::PARAM_INT);
+            $stmt->bindParam(':EntityId', $EntityId, PDO::PARAM_INT);
+            $stmt->execute();
+            $this->database->disconnect();
+            return $stmt->rowCount() > 0;
+        } catch (PDOException $e) {
+            error_log("Error adding relation between book with ID {$BookId} and entity with ID {$EntityId}: " . $e->getMessage());
             return false;
         }
     }
