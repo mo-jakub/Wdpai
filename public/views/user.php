@@ -31,13 +31,14 @@
             page-with-menu
         <?php endif; ?>
         ">
-        <div class="container column">
+        <div class="container column border">
+            <h3>Account Information</h3>
             <h4>Username: <?= htmlspecialchars($user->getUsername()) ?></h4>
             <h4>Name: <?= htmlspecialchars($userInfo['name'] ?? 'no name given') ?></h4>
             <h4>Surname: <?= htmlspecialchars($userInfo['surname'] ?? 'no surname given') ?></h4>
             <h4>Summary: <?= htmlspecialchars($userInfo['summary'] ?? 'no summary given') ?></h4>
         </div>
-    <div class="container column">
+    <div class="container column border">
 <?php switch ($action): ?>
 <?php case '': ?>
     <?php if (isset($_SESSION['userId']) && $_SESSION['userId'] === $user->getId()): ?>
