@@ -47,7 +47,7 @@
         <strong>Description:</strong>
         <p><?= nl2br(htmlspecialchars($book->getDescription())) ?></p>
     </div>
-    <div class="column">
+    <div class="column border">
         <h3>Comments:</h3>
         <div class="container column border">
             <h3>Add a comment:</h3>
