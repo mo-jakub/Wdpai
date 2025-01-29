@@ -38,7 +38,7 @@
                         </a>
                         <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
                             <a href="/administration" class="nav-link">
-                                <img src="/public/images/admin.svg" alt="" class="logo">
+                                <img src="/public/images/header/admin.svg" alt="" class="logo">
                                 Administration
                             </a>
                         <?php endif; ?>
@@ -89,7 +89,7 @@
                     </a>
                     <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
                         <a href="/administration" class="nav-link">
-                            <img src="/public/images/admin.svg" alt="" class="logo">
+                            <img src="/public/images/header/admin.svg" alt="" class="logo">
                             Administration
                         </a>
                     <?php endif; ?>
