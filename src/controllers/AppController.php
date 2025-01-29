@@ -28,7 +28,7 @@ class AppController {
             ob_start();
             include $templatePath;
         } else {
-            $templatePath = __DIR__ . '/../../public/'. $template.'.php';
+            $templatePath = __DIR__ . '/../../public/views/'. $template.'.php';
             
             include $templatePath;
         }
