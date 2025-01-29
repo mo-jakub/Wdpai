@@ -10,13 +10,13 @@
 </head>
 <body>
 
-<?php include 'public/partials/header.php'; ?>
+<?php include 'public/views/parts/header.php'; ?>
 
 <main>
 <?php foreach($booksByGenre as $genreData): ?>
 <div class="border">
     <div class="container">
-        <a href="/entity?type=genre?id=<?= $genreData['id'] ?>" class="nav-link">
+        <a href="/entity?type=genre&id=<?= $genreData['id'] ?>" class="nav-link">
             <h2><?= htmlspecialchars($genreData['name']) ?></h2>
         </a>
     </div>
@@ -27,7 +27,7 @@
                     <img src="https://random.imagecdn.app/700/700" alt="<?= htmlspecialchars($book['title']) ?>" class="book-placeholder">
                 </a>
             <?php endforeach; ?>
-            <a href="/entity?type=genre?id=<?= $genreData['id'] ?>" class="nav-link">
+            <a href="/entity?type=genre&id=<?= $genreData['id'] ?>" class="nav-link">
                 <h2>See More <?= htmlspecialchars($genreData['name']) ?> Books</h2>
             </a>
         </div>
@@ -36,7 +36,7 @@
 <?php endforeach; ?>
 </main>
 
-<?php include 'public/partials/footer.php'; ?>
+<?php include 'public/views/parts/footer.php'; ?>
 
 </body>
 </html>
