@@ -219,7 +219,6 @@ button:hover {
 }
 
 .menu {
-    position: sticky;
     top: 5rem;
     background-color: #282A37;
     padding: 1rem;
@@ -227,14 +226,20 @@ button:hover {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     display: flex;
     width: 10rem;
+    margin-left: 5rem;
 }
 
 .menu a {
     padding: 0.5rem;
 }
 
-.user-page {
+.page-with-menu {
     margin-left: -20%;
+}
+
+th, td {
+    border: 1px solid #3D4D9B;
+    max-width: 10rem;
 }
 
 @media print {
@@ -295,7 +300,8 @@ button:hover {
         display: flex;
     }
 
-    .user-page {
+    .page-with-menu,
+    .menu {
         margin-left: auto;
     }
 }

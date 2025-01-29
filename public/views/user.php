@@ -28,7 +28,7 @@
     <?php endif; ?>
     <div class="column
         <?php if (isset($_SESSION['userId']) && $_SESSION['userId'] === $user->getId()): ?>
-            user-page
+            page-with-menu
         <?php endif; ?>
         ">
         <div class="container column">
