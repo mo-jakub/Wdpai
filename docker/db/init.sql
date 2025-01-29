@@ -37,7 +37,8 @@ CREATE TABLE public.sessions (
 CREATE TABLE public.books (
     id_book SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
-    description VARCHAR(255) NOT NULL
+    description VARCHAR(255) NOT NULL,
+    UNIQUE (title, description)
 );
 
 CREATE TABLE public.comments (
