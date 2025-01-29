@@ -8,19 +8,19 @@
 </head>
 <body>
 
-<?php include __DIR__ . '/../../public/partials/header.php'; ?>
+<?php include __DIR__ . '/../parts/header.php'; ?>
 
 <main class="page">
     <div class="info">
         <img src="/public/images/on-page-logo.svg" alt="Logo" class="on-page-logo">
         <h3>
-            <p>Error of the DB</p>
-            <p>Could not connect to database or an answer to the query was empty.</p>
+            <p>Error 404</p>
+            <p>Page not found.</p>
         </h3>
     </div>
 </main>
 
-<?php include __DIR__ . '/../../public/partials/footer.php'; ?>
+<?php include __DIR__ . '/../parts/footer.php'; ?>
 
 </body>
 </html>

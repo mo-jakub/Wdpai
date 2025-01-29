@@ -36,6 +36,12 @@
                             <img src="/public/images/user.svg" alt="" class="logo">
                             <?= htmlspecialchars($_SESSION['username']) ?>
                         </a>
+                        <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+                            <a href="/administration" class="nav-link">
+                                <img src="/public/images/admin.svg" alt="" class="logo">
+                                Administration
+                            </a>
+                        <?php endif; ?>
                     <?php else: ?>
                         <a href="/login" class="nav-link">
                             <img src="/public/images/header/login.svg" alt="" class="logo">
@@ -81,6 +87,12 @@
                         <img src="/public/images/user.svg" alt="" class="logo">
                         <?= htmlspecialchars($_SESSION['username']) ?>
                     </a>
+                    <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+                        <a href="/administration" class="nav-link">
+                            <img src="/public/images/admin.svg" alt="" class="logo">
+                            Administration
+                        </a>
+                    <?php endif; ?>
                 <?php else: ?>
                     <a href="/login" class="nav-link">
                         <img src="/public/images/header/login.svg" alt="" class="logo">
