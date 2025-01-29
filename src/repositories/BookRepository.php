@@ -41,7 +41,7 @@ class BookRepository extends Repository
             id_genre, genre
         ORDER BY 
             genre;
-    ");
+        ");
 
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -121,5 +121,17 @@ class BookRepository extends Repository
     
         $this->database->disconnect();
         return $book;
+    }
+
+    function getAllBookDetails(): ?array
+    {
+        $stmt = $this->database->connect()->prepare("
+            SELECT id_book AS id, title, description, authors, tags, genres
+            FROM public.book_details
+        ");
+        $stmt->execute();
+        $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $this->database->disconnect();
+        return $books;
     }
 }
