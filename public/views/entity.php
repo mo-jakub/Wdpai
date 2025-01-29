@@ -12,26 +12,26 @@
 </head>
 <body>
 
-<?php include 'public/partials/header.php'; ?>
+<?php include 'public/views/parts/header.php'; ?>
 
 <main>
-    <div class="container">
-        <h1><?= ucfirst(htmlspecialchars($type)) ?>: <?= htmlspecialchars($entity['name']) ?></h1>
-    </div>
     <div class="container column">
+        <h1><?= ucfirst(htmlspecialchars($type)) ?>: <?= htmlspecialchars($entity['name']) ?></h1>
         <?php foreach ($books as $book): ?>
             <div class="container border">
                 <a class="nav-link book-display " href="/book/<?= $book['id'] ?>">
                     <img src="https://random.imagecdn.app/700/700" alt="<?= htmlspecialchars($book['title']) ?>" class="book-placeholder">
-                    <h3><?= htmlspecialchars($book['title']) ?></h3>
-                    <p><?= htmlspecialchars($book['description']) ?></p>
+                    <div class="column">
+                        <h3><?= htmlspecialchars($book['title']) ?></h3>
+                        <p><?= htmlspecialchars($book['description']) ?></p>
+                    </div>
                 </a>
             </div>
         <?php endforeach; ?>
     </div>
 </main>
 
-<?php include 'public/partials/footer.php'; ?>
+<?php include 'public/views/parts/footer.php'; ?>
 
 </body>
 </html>

@@ -11,13 +11,11 @@
 </head>
 <body>
 
-<?php include 'public/partials/header.php'; ?>
+<?php include 'public/views/parts/header.php'; ?>
 
 <main>
-    <div class="container">
-        <h1><?= ucfirst(htmlspecialchars($type)) ?>s</h1>
-    </div>
     <div class="container column">
+        <h1><?= ucfirst(htmlspecialchars($type)) ?>s</h1>
         <?php foreach ($entities as $entity): ?>
             <a href="/entity?type=<?= $type ?>&id=<?= $entity->getId() ?>" class="nav-link">
                 <h4># <?= htmlspecialchars($entity->getName()); ?></h4>
@@ -26,7 +24,7 @@
     </div>
 </main>
 
-<?php include 'public/partials/footer.php'; ?>
+<?php include 'public/views/parts/footer.php'; ?>
 
 </body>
 </html>

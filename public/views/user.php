@@ -13,31 +13,31 @@
 </head>
 <body>
 
-<?php include 'public/partials/header.php'; ?>
+<?php include 'public/views/parts/header.php'; ?>
 
-<main class="container">
-    <div class="container column">
-        <h4>Username: <?= htmlspecialchars($user->getUsername()) ?></h4>
-        <h4>Name: <?= htmlspecialchars($userInfo['name'] ?? 'no name given') ?></h4>
-        <h4>Surname: <?= htmlspecialchars($userInfo['surname'] ?? 'no surname given') ?></h4>
-        <h4>Summary: <?= htmlspecialchars($userInfo['summary'] ?? 'no summary given') ?></h4>
-    </div>
-
-    <div class="container
-            <?php if (isset($_SESSION['userId']) && $_SESSION['userId'] === $user->getId()): ?>
-                row
-            <?php endif; ?>">
+<main>
+    <?php if (isset($_SESSION['userId']) && $_SESSION['userId'] === $user->getId()): ?>
+        <aside class="menu column">
+            <h3>Your Account</h3>
+            <a href="/user/<?= htmlspecialchars($_SESSION['userId']) ?>" class="nav-link">Account Main Page</a>
+            <a href="/user/<?= htmlspecialchars($_SESSION['userId']) ?>?action=editInfo" class="nav-link">Edit Account Information</a>
+            <a href="/user/<?= htmlspecialchars($_SESSION['userId']) ?>?action=changeUsername" class="nav-link">Change Username</a>
+            <a href="/user/<?= htmlspecialchars($_SESSION['userId']) ?>?action=changeEmail" class="nav-link">Change Email</a>
+            <a href="/user/<?= htmlspecialchars($_SESSION['userId']) ?>?action=changePassword" class="nav-link">Change Password</a>
+        </aside>
+    <?php endif; ?>
+    <div class="column
         <?php if (isset($_SESSION['userId']) && $_SESSION['userId'] === $user->getId()): ?>
-            <aside class="container column menu">
-                <h3>Your Account</h3>
-                    <a href="/user/<?= htmlspecialchars($_SESSION['userId']) ?>" class="nav-link">Account Main Page</a>
-                    <a href="/user/<?= htmlspecialchars($_SESSION['userId']) ?>?action=editInfo" class="nav-link">Edit Account Information</a>
-                    <a href="/user/<?= htmlspecialchars($_SESSION['userId']) ?>?action=changeUsername" class="nav-link">Change Username</a>
-                    <a href="/user/<?= htmlspecialchars($_SESSION['userId']) ?>?action=changeEmail" class="nav-link">Change Email</a>
-                    <a href="/user/<?= htmlspecialchars($_SESSION['userId']) ?>?action=changePassword" class="nav-link">Change Password</a>
-            </aside>
+            user-page
         <?php endif; ?>
+        ">
         <div class="container column">
+            <h4>Username: <?= htmlspecialchars($user->getUsername()) ?></h4>
+            <h4>Name: <?= htmlspecialchars($userInfo['name'] ?? 'no name given') ?></h4>
+            <h4>Surname: <?= htmlspecialchars($userInfo['surname'] ?? 'no surname given') ?></h4>
+            <h4>Summary: <?= htmlspecialchars($userInfo['summary'] ?? 'no summary given') ?></h4>
+        </div>
+    <div class="container column">
 <?php switch ($action): ?>
 <?php case '': ?>
     <?php if (isset($_SESSION['userId']) && $_SESSION['userId'] === $user->getId()): ?>
@@ -137,11 +137,11 @@
 <?php default: ?>
     <p>Invalid action.</p>
 <?php endswitch; ?>
-        </div>
+    </div>
     </div>
 </main>
 
-<?php include 'public/partials/footer.php'; ?>
+<?php include 'public/views/parts/footer.php'; ?>
 
 </body>
 </html>
