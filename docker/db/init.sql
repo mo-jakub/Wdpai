@@ -104,3 +104,28 @@ CREATE EXTENSION IF NOT EXISTS pg_cron;
 SELECT cron.schedule('delete_expired_sessions', '0 */1 * * *', $$
     SELECT delete_expired_sessions();
 $$);
+
+CREATE VIEW book_details AS
+SELECT
+    b.id_book,
+    b.title,
+    b.description,
+    ARRAY_AGG(DISTINCT a.author) AS authors,
+    ARRAY_AGG(DISTINCT t.tag) AS tags,
+    ARRAY_AGG(DISTINCT g.genre) AS genres
+FROM
+    books b
+        LEFT JOIN
+    book_authors ba ON b.id_book = ba.id_book
+        LEFT JOIN
+    authors a ON ba.id_author = a.id_author
+        LEFT JOIN
+    book_tags bt ON b.id_book = bt.id_book
+        LEFT JOIN
+    tags t ON bt.id_tag = t.id_tag
+        LEFT JOIN
+    book_genres bg ON b.id_book = bg.id_book
+        LEFT JOIN
+    genres g ON bg.id_genre = g.id_genre
+GROUP BY
+    b.id_book, b.title, b.description;
