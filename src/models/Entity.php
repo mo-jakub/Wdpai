@@ -1,9 +1,9 @@
 <?php
 
-class Tag
+class Entity
 {
-    private int $id;
-    private string $name;
+    protected int $id;
+    protected string $name;
 
     public function getId(): int
     {

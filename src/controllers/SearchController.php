@@ -29,8 +29,8 @@ class SearchController extends AppController
         }
 
         $repository = $this->repositories[$type];
-        $entity = $repository->{"get" . ucfirst($type) . "ById"}((int)$id);
-        $books = $repository->{"getBooksBy" . ucfirst($type) . "Id"}((int)$id);
+        $entity = $repository->getEntityById((int)$id);
+        $books = $repository->getBooksByEntityId((int)$id);
 
         if (!$entity) {
             $this->render('errors/ErrorDB');

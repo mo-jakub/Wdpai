@@ -16,8 +16,9 @@
 
 <main>
     <div class="container column">
-        <h1><?= ucfirst(htmlspecialchars($type)) ?>: <?= htmlspecialchars($entity['name']) ?></h1>
-        <?php foreach ($books as $book): ?>
+        <h1><?= ucfirst(htmlspecialchars($type)) ?>: <?= htmlspecialchars($entity[0]->getName()) ?></h1>
+        <?php if ($books):
+        foreach ($books as $book): ?>
             <div class="container border">
                 <a class="nav-link book-display " href="/book/<?= $book['id'] ?>">
                     <img src="https://random.imagecdn.app/700/700" alt="<?= htmlspecialchars($book['title']) ?>" class="book-placeholder">
@@ -27,7 +28,7 @@
                     </div>
                 </a>
             </div>
-        <?php endforeach; ?>
+        <?php endforeach; endif; ?>
     </div>
 </main>
 
