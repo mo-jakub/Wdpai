@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<?php include 'public/partials/header.php'; ?>
+<?php include 'public/views/parts/header.php'; ?>
 
 <main class="page">
     <div class="info">
@@ -28,7 +28,7 @@
     </div>
 </main>
 
-<?php include 'public/partials/footer.php'; ?>
+<?php include 'public/views/parts/footer.php'; ?>
 
 </body>
 </html>

@@ -17,7 +17,7 @@ if (isset($_COOKIE['session_token'])) {
 }
 ?>
 
-<?php include 'public/partials/header.php'; ?>
+<?php include 'public/views/parts/header.php'; ?>
 
 <main class="page">
         <div class="info non-important">
@@ -41,7 +41,7 @@ if (isset($_COOKIE['session_token'])) {
         </div>
 </main>
 
-<?php include 'public/partials/footer.php'; ?>
+<?php include 'public/views/parts/footer.php'; ?>
 
 </body>
 </html>
