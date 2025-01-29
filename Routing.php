@@ -22,7 +22,7 @@ class Router {
 
     public static function run($url)
     {
-        $urlParts = explode("/", $url);
+        $urlParts = explode("/", $url ?? '');
         $action = $urlParts[0];
 
         if (!array_key_exists($action, self::$routes)) {

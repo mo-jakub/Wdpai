@@ -59,6 +59,27 @@ class BookRepository extends Repository
         return $groupedBooks;
     }
 
+    public function searchBooksByQuery(string $query): array
+    {
+        $stmt = $this->database->connect()->prepare("
+        SELECT DISTINCT b.id_book AS id, b.title, b.description, 
+            ARRAY_AGG(a.author) AS authors
+        FROM public.books b
+        LEFT JOIN public.book_authors ba ON b.id_book = ba.id_book
+        LEFT JOIN public.authors a ON ba.id_author = a.id_author
+        WHERE b.title ILIKE :query OR a.author ILIKE :query
+        GROUP BY b.id_book, b.title, b.description
+        LIMIT 20
+    ");
+        $searchTerm = '%' . $query . '%';
+        $stmt->bindParam(':query', $searchTerm, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $this->database->disconnect();
+        return $books;
+    }
+
     public function getBookById(int $id): ?Book
     {
         $stmt = $this->database->connect()->prepare("

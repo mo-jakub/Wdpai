@@ -4,10 +4,13 @@ require_once 'AppController.php';
 require_once __DIR__ . '/../repositories/GenreRepository.php';
 require_once __DIR__ . '/../repositories/TagRepository.php';
 require_once __DIR__ . '/../repositories/AuthorRepository.php';
+require_once __DIR__ . '/../repositories/BookRepository.php';
+
 
 class SearchController extends AppController
 {
     private array $repositories;
+    private BookRepository $bookRepository;
 
     public function __construct()
     {
@@ -17,6 +20,8 @@ class SearchController extends AppController
             'tag' => new TagRepository(),
             'author' => new AuthorRepository(),
         ];
+        $this->bookRepository = new BookRepository();
+
     }
 
     public function entity(): void
@@ -64,5 +69,28 @@ class SearchController extends AppController
             'type' => $type,
             'entities' => $entities,
         ]);
+    }
+
+    public function searchBooks(): void
+    {
+        ob_start();
+        header('Content-Type: application/json');
+
+        // Example: Empty query handling
+        if (empty($_GET['q'])) {
+            echo json_encode([]);
+            return;
+        }
+
+        ob_end_flush();
+
+        $query = $_GET['q'];
+
+        // Example: Fetch Books (Replace with your logic)
+        $results = $this->bookRepository->searchBooksByQuery($query);
+
+        echo json_encode($results);
+        return;
+
     }
 }

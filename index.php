@@ -40,5 +40,6 @@ Router::post('addEntity', 'AdminController');
 Router::post('deleteEntity', 'AdminController');
 Router::post('editEntity', 'AdminController');
 Router::post('addBook', 'AdminController');
+Router::get('searchBooks', 'SearchController');
 
 Router::run($path);

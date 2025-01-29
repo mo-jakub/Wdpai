@@ -1,5 +1,7 @@
 <script src="/public/scripts/menu.js"></script>
 <script src="/public/scripts/sessionRenew.js"></script>
+<script src="/public/scripts/searchBooks.js"></script>
+<link rel="stylesheet" type="text/css" href="/public/styles/search.css">
 <header>
     <div class="container">
         <div class="mobile-header container">
@@ -12,9 +14,9 @@
                     <img src="/public/images/header/menu.svg" alt="Menu">
                 </div>
                 <div class="dropdown-menu">
-                    <div class="search-bar">
+                    <form class="search-bar mobile-search-bar">
                         <input type="text" placeholder="Search by title or author">
-                    </div>
+                    </form>
                     <a href="/" class="nav-link">
                         <img src="/public/images/header/home.svg" alt="" class="logo">
                         Home
@@ -74,9 +76,9 @@
                     Tags
                 </a>
             </nav>
-            <div class="search-bar">
+            <form class="search-bar desktop-search-bar">
                 <input type="text" placeholder="Search by title or author">
-            </div>
+            </form>
             <nav class="nav-wrapper auth">
                 <?php if (isset($_COOKIE['session_token'])): ?>
                     <a href="/logout" class="nav-link">
