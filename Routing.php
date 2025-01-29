@@ -5,6 +5,7 @@ require_once 'src/controllers/SecurityController.php';
 require_once 'src/controllers/SearchController.php';
 require_once 'src/controllers/BookController.php';
 require_once 'src/controllers/UserController.php';
+require_once 'src/controllers/AdminController.php';
 
 class Router {
     public static $routes;
@@ -40,7 +41,7 @@ class Router {
 
     public static function renderError()
     {
-        $errorTemplatePath = 'public/errors/Error404.php';
+        $errorTemplatePath = 'public/views/errors/Error404.php';
         
         if (file_exists($errorTemplatePath)) {
             include $errorTemplatePath;
