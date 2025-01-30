@@ -1,4 +1,5 @@
 <?php
+// Ensure the user has the 'admin' role. Redirect if unauthorized.
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin')
 {
     header('Location: /');
@@ -15,26 +16,52 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin')
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administration - Power Of Knowledge</title>
+
+    <!-- Stylesheet -->
     <link rel="stylesheet" type="text/css" href="/public/styles/style.css">
+
+    <!-- Website favicon -->
     <link rel="icon" type="image/png" href="/public/images/logo.svg">
+
+    <!-- JavaScript for confirm deletion functionality -->
     <script src="/public/scripts/confirmDeletion.js"></script>
 </head>
 
 <body>
 
-<?php include 'public/views/parts/header.php'; ?>
+<?php
+/**
+ * Include the header section of the site.
+ * - This is a reusable view component for site-wide navigation and branding.
+ */
+include 'public/views/parts/header.php';
+?>
 
 <main>
     <aside class="menu column">
+        <!-- Sidebar menu for navigating between administration sections -->
         <h3>Administration</h3>
         <a href="/administration" class="nav-link">Edit Books</a>
         <a href="/administration?action=author" class="nav-link">Edit Authors</a>
         <a href="/administration?action=tag" class="nav-link">Edit Tags</a>
         <a href="/administration?action=genre" class="nav-link">Edit Genres</a>
     </aside>
-<?php switch ($action): ?>
-<?php case '': ?>
+    <?php
+    /**
+     * The main content switches based on the value of $action.
+     * - If $action is empty, the Book Management section is shown.
+     * - If $action is 'author', 'tag', or 'genre', the respective entity management section is loaded.
+     */
+    switch ($action): ?>
+<?php
+/**
+ * Book Management Section
+ * - Displays a list of all books with editable fields for title, description, authors, tags, genres, and cover.
+ * - Provides functionality for deleting existing book or adding a new one.
+ */
+case '': ?>
     <table class="page-with-menu column border">
+        <!-- Table headers for Book Management -->
         <tr>
             <th>ID</th>
             <th>Title</th>
@@ -45,7 +72,9 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin')
             <th>Cover</th>
             <th></th>
         </tr>
-        <?php foreach ($books as $book) : ?>
+        <?php
+        // Loop through each book, displaying its editable fields in a form.
+        foreach ($books as $book) : ?>
             <tr>
                 <th><?= htmlspecialchars($book['id']) ?></th>
                 <form action="/editBook" method="post" enctype="multipart/form-data">
@@ -57,6 +86,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin')
                         <input type="text" name="description" value="<?= htmlspecialchars($book['description']) ?>" required>
                     </th>
                     <th>
+                        <!-- Editable authors field -->
                         <select class="container" name="author[]" multiple>
                             <?php foreach ($types[0]['entities'] as $author): ?>
                                 <option value="<?= $author->getId() ?>"
@@ -67,6 +97,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin')
                         </select>
                     </th>
                     <th>
+                        <!-- Editable tags field -->
                         <select class="container" name="tag[]" multiple>
                             <?php foreach ($types[2]['entities'] as $tag): ?>
                                 <option value="<?= $tag->getId() ?>"
@@ -77,6 +108,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin')
                         </select>
                     </th>
                     <th>
+                        <!-- Editable genres field -->
                         <select class="container" name="genre[]" multiple>
                             <?php foreach ($types[1]['entities'] as $genre): ?>
                                 <option value="<?= $genre->getId() ?>"
@@ -87,9 +119,16 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin')
                         </select>
                     </th>
                     <th>
-                        <input type="file" name="cover" accept="image/*">
+                        <?php if (!empty($book['cover'])): ?>
+                            <!-- Display the current cover -->
+                            <img src="<?= htmlspecialchars($book['cover']) ?>" alt="Current Cover" style="max-width: 100px; max-height: 100px;">
+                        <?php endif; ?>
+                        <!-- File input for uploading a new cover -->
+                        <input type="file" name="cover" value="<?= $book['cover'] ?>" accept="image/*">
                     </th>
+
                     <td>
+                        <!-- Save and delete buttons -->
                         <button type="submit">
                             <img src="/public/images/admin/save.svg" alt="Save" class="logo">
                         </button>
@@ -102,13 +141,13 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin')
                                 data-url="/deleteBook">
                             <img src="/public/images/admin/trash.svg" alt="Delete" class="logo">
                         </button>
-
                     </form>
                 </td>
             </tr>
         <?php endforeach; ?>
         <tr>
             <td></td>
+            <!-- Fields for adding a new book -->
             <form action="/addBook" method="post" enctype="multipart/form-data">
                 <th><input type="text" name="title" placeholder="Enter book title" required></th>
                 <th><input type="text" name="description" placeholder="Enter book description" required></th>
@@ -133,15 +172,22 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin')
             </form>
         </tr>
     </table>
-<?php break; ?>
-<?php case in_array($action, ['tag', 'genre', 'author']):
+            <?php break; ?>
+<?php
+/**
+ * Entity Management Section
+ * - Displays a list of entities (authors, genres, or tags) with editable fields for their names.
+ * - Supports adding new entities to the list.
+ */
+case in_array($action, ['tag', 'genre', 'author']):
     foreach ($types as $type) {
         if ($type['type'] === $action) {
             $entities = $type['entities'];
             break;
         }
     }
-?>
+    ?>
+
     <table class="page-with-menu column border">
         <tr>
             <th>ID</th>
@@ -160,6 +206,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin')
                                required>
                     </th>
                     <th>
+                        <!-- Save and delete buttons for entities -->
                         <button type="submit">
                             <img src="/public/images/admin/save.svg" alt="Save" class="logo">
                         </button>
@@ -177,6 +224,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin')
         <?php endforeach; ?>
         <tr>
             <td></td>
+            <!-- Fields for adding a new entity -->
             <form action="/addEntity" method="post">
                 <th>
                     <input type="hidden" name="type"  value="<?= $type['type'] ?>">
@@ -194,7 +242,13 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin')
 <?php endswitch; ?>
 </main>
 
-<?php include 'public/views/parts/footer.php'; ?>
+<?php
+/**
+ * Include the footer section of the site.
+ * - This is a reusable view component for site-wide branding and information.
+ */
+include 'public/views/parts/footer.php';
+?>
 
 </body>
 </html>
