@@ -5,6 +5,8 @@ class Book
     private int $id;
     private string $title;
     private string $description;
+    private ?string $cover; // cover image path
+
     private array $tags = [];
     private array $authors = [];
     private array $genres = [];
@@ -25,6 +27,11 @@ class Book
     public function getDescription(): string
     {
         return $this->description;
+    }
+
+    public function getCover(): string
+    {
+        return $this->cover;
     }
 
     public function getTags(): array
