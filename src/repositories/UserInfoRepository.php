@@ -25,10 +25,10 @@ class UserInfoRepository extends Repository
     {
         try {
             $stmt = $this->database->connect()->prepare('
-            UPDATE user_info
-            SET name = :name, surname = :surname, summary = :summary
-            WHERE user_id = :user_id
-        ');
+                UPDATE user_info
+                SET name = :name, surname = :surname, summary = :summary
+                WHERE id_user = :user_id
+            ');
 
             $stmt->bindParam(':name', $name);
             $stmt->bindParam(':surname', $surname);
