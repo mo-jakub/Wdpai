@@ -25,21 +25,28 @@ $path = parse_url($path, PHP_URL_PATH);
 Router::get('', 'DefaultController');
 Router::get('dashboard', 'DefaultController');
 Router::get('info', 'DefaultController');
-Router::post('login', 'SecurityController');
+
 Router::post('register', 'SecurityController');
+Router::post('login', 'SecurityController');
+Router::post('extendSession', 'SecurityController');
 Router::get('logout', 'SecurityController');
-Router::get('entity', 'SearchController');
+
 Router::get('entities', 'SearchController');
+Router::get('entity', 'SearchController');
+Router::get('searchBooks', 'SearchController');
+
 Router::get('book', 'BookController');
 Router::post('addComment', 'BookController');
 Router::post('deleteComment', 'BookController');
+
 Router::get('user', 'UserController');
-Router::post('extendSession', 'SecurityController');
+
 Router::get('administration', 'AdminController');
 Router::post('addEntity', 'AdminController');
-Router::post('deleteEntity', 'AdminController');
 Router::post('editEntity', 'AdminController');
+Router::post('deleteEntity', 'AdminController');
 Router::post('addBook', 'AdminController');
-Router::get('searchBooks', 'SearchController');
+Router::post('editBook', 'AdminController');
+Router::post('deleteBook', 'AdminController');
 
 Router::run($path);
