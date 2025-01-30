@@ -29,7 +29,7 @@ class Book
         return $this->description;
     }
 
-    public function getCover(): string
+    public function getCover(): ?string
     {
         return $this->cover;
     }
