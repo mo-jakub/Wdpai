@@ -4,12 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Power Of Knowledge</title>
+
+    <!-- Stylesheet -->
     <link rel="stylesheet" type="text/css" href="/public/styles/style.css">
+
+    <!-- Website favicon -->
     <link rel="icon" type="image/png" href="/public/images/logo.svg">
 </head>
 <body>
 
-<?php include 'public/views/parts/header.php'; ?>
+<?php
+/**
+ * Include the header section of the site.
+ * - This is a reusable view component for site-wide navigation and branding.
+ */
+include 'public/views/parts/header.php';
+?>
 
 <main class="page">
     <div class="info">
@@ -28,7 +38,13 @@
     </div>
 </main>
 
-<?php include 'public/views/parts/footer.php'; ?>
+<?php
+/**
+ * Include the footer section of the site.
+ * - This is a reusable view component for site-wide branding and information.
+ */
+include 'public/views/parts/footer.php';
+?>
 
 </body>
 </html>
