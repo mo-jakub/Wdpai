@@ -28,7 +28,6 @@ class AdminController extends AppController
      * Fetches all book details, entity types (authors, genres, tags), and
      * renders the 'administration' view with the respective data.
      *
-     * @return void
      */
     public function administration(): void
     {

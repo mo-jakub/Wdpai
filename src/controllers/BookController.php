@@ -55,7 +55,6 @@ class BookController extends AppController
      * - Saves the comment in the database using the CommentRepository.
      * - Redirects back to the book's page after successfully adding the comment.
      *
-     * @route /book/addComment
      */
     public function addComment(): void
     {
@@ -96,7 +95,6 @@ class BookController extends AppController
      * - Deletes the comment from the database via the CommentRepository.
      * - Redirects back to the referring page after comment deletion.
      *
-     * @route /book/deleteComment
      */
     public function deleteComment(): void
     {
