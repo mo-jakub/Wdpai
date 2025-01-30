@@ -42,12 +42,13 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin')
             <th>Authors</th>
             <th>Tags</th>
             <th>Genres</th>
+            <th>Cover</th>
             <th></th>
         </tr>
         <?php foreach ($books as $book) : ?>
             <tr>
                 <th><?= htmlspecialchars($book['id']) ?></th>
-                <form action="/editBook" method="post">
+                <form action="/editBook" method="post" enctype="multipart/form-data">
                     <th>
                         <input type="hidden" name="id" value="<?= htmlspecialchars($book['id']) ?>">
                         <input type="text" name="title" value="<?= htmlspecialchars($book['title']) ?>" required>
@@ -85,6 +86,9 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin')
                             <?php endforeach; ?>
                         </select>
                     </th>
+                    <th>
+                        <input type="file" name="cover" accept="image/*">
+                    </th>
                     <td>
                         <button type="submit">
                             <img src="/public/images/admin/save.svg" alt="Save" class="logo">
@@ -105,19 +109,22 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin')
         <?php endforeach; ?>
         <tr>
             <td></td>
-            <form action="/addBook" method="post">
+            <form action="/addBook" method="post" enctype="multipart/form-data">
                 <th><input type="text" name="title" placeholder="Enter book title" required></th>
                 <th><input type="text" name="description" placeholder="Enter book description" required></th>
                 <?php foreach ($types as $type) : ?>
                     <th><select class="container" name="<?= $type['type'] ?>[]" multiple size="2">
                             <?php foreach ($type['entities'] as $entity) : ?>
-                            <option value="<?= $entity->getId() ?>">
-                                <?= htmlspecialchars($entity->getName()) ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
+                                <option value="<?= $entity->getId() ?>">
+                                    <?= htmlspecialchars($entity->getName()) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
                     </th>
                 <?php endforeach; ?>
+                <th>
+                    <input type="file" name="cover" accept="image/*">
+                </th>
                 <th>
                     <button type="submit">
                         <img src="/public/images/admin/plus.svg" alt="Add" class="logo">

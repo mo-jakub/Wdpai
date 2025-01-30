@@ -24,7 +24,7 @@
         <div class="books-grid">
             <?php foreach($genreData['books'] as $book): ?>
                 <a href="/book/<?= $book['id'] ?>">
-                    <img src="https://random.imagecdn.app/700/700" alt="<?= htmlspecialchars($book['title']) ?>" class="book-placeholder">
+                    <img src="<?= htmlspecialchars($book['cover']) ?>" alt="<?= htmlspecialchars($book['title']) ?>" class="book-placeholder">
                 </a>
             <?php endforeach; ?>
             <a href="/entity?type=genre&id=<?= $genreData['id'] ?>" class="nav-link">

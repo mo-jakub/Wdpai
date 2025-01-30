@@ -14,7 +14,7 @@
 
 <main>
     <div class="column border">
-        <img src="https://random.imagecdn.app/700/700" class="book-placeholder" alt="<?= htmlspecialchars($book->getTitle()) ?>">
+        <img src="<?= htmlspecialchars($book->getCover()) ?>" class="book-placeholder" alt="<?= htmlspecialchars($book->getTitle()) ?>">
         <div class="column">
         <h2>Title: <?= htmlspecialchars($book->getTitle()) ?></h2>
         <p>
