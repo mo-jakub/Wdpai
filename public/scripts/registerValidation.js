@@ -4,12 +4,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const bubble = document.createElement("div");
     bubble.textContent = "";
     bubble.style.position = "absolute";
-    bubble.style.backgroundColor = "rgba(255, 0, 0, 0.8)";
-    bubble.style.color = "white";
+    bubble.style.backgroundColor = "white";
+    bubble.style.color = "black";
     bubble.style.padding = "5px 10px";
     bubble.style.borderRadius = "5px";
     bubble.style.fontSize = "0.9em";
-    bubble.style.whiteSpace = "nowrap";
     bubble.style.visibility = "hidden";
     bubble.style.zIndex = "10";
 
