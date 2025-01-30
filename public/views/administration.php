@@ -17,6 +17,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin')
     <title>Administration - Power Of Knowledge</title>
     <link rel="stylesheet" type="text/css" href="/public/styles/style.css">
     <link rel="icon" type="image/png" href="/public/images/logo.svg">
+    <script src="/public/scripts/confirmDeletion.js"></script>
 </head>
 
 <body>
@@ -45,35 +46,59 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin')
         </tr>
         <?php foreach ($books as $book) : ?>
             <tr>
-                <td><?= htmlspecialchars($book['id']) ?></td>
-                <th><?= htmlspecialchars($book['title']) ?></th>
-                <td><?= htmlspecialchars($book['description']) ?></td>
-                <th>
-                    <?php
-                    $authors = str_getcsv(trim($book['authors'], '{}'));
-                    foreach ($authors as $author) : ?>
-                        <?= htmlspecialchars($author) ?>
-                    <?php endforeach; ?>
-                </th>
-                <th>
-                    <?php
-                    $tags = str_getcsv(trim($book['tags'], '{}'));
-                    foreach ($tags as $tag) : ?>
-                        <?= htmlspecialchars($tag) ?>
-                    <?php endforeach; ?>
-                </th>
-                <th><?php
-                    $genres = str_getcsv(trim($book['genres'], '{}'));
-                    foreach ($genres as $genre) : ?>
-                    <?= htmlspecialchars($genre) ?>
-                    <?php endforeach; ?>
-                </th>
-                <td>
+                <th><?= htmlspecialchars($book['id']) ?></th>
+                <form action="/editBook" method="post">
+                    <th>
+                        <input type="hidden" name="id" value="<?= htmlspecialchars($book['id']) ?>">
+                        <input type="text" name="title" value="<?= htmlspecialchars($book['title']) ?>" required>
+                    </th>
+                    <th>
+                        <input type="text" name="description" value="<?= htmlspecialchars($book['description']) ?>" required>
+                    </th>
+                    <th>
+                        <select class="container" name="author[]" multiple>
+                            <?php foreach ($types[0]['entities'] as $author): ?>
+                                <option value="<?= $author->getId() ?>"
+                                    <?= in_array($author->getName(), str_getcsv(trim($book['authors'], '{}'))) ? 'selected' : '' ?>>
+                                    <?= htmlspecialchars($author->getName()) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </th>
+                    <th>
+                        <select class="container" name="tag[]" multiple>
+                            <?php foreach ($types[2]['entities'] as $tag): ?>
+                                <option value="<?= $tag->getId() ?>"
+                                    <?= in_array($tag->getName(), str_getcsv(trim($book['tags'], '{}'))) ? 'selected' : '' ?>>
+                                    <?= htmlspecialchars($tag->getName()) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </th>
+                    <th>
+                        <select class="container" name="genre[]" multiple>
+                            <?php foreach ($types[1]['entities'] as $genre): ?>
+                                <option value="<?= $genre->getId() ?>"
+                                    <?= in_array($genre->getName(), str_getcsv(trim($book['genres'], '{}'))) ? 'selected' : '' ?>>
+                                    <?= htmlspecialchars($genre->getName()) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </th>
+                    <td>
+                        <button type="submit">
+                            <img src="/public/images/admin/save.svg" alt="Save" class="logo">
+                        </button>
+                </form>
                     <form action="/deleteBook" method="post">
                         <input type="hidden" name="id" value="<?= htmlspecialchars($book['id']) ?>">
-                        <button>
+                        <button type="button"
+                                data-delete
+                                data-id="<?= htmlspecialchars($book['id']) ?>"
+                                data-url="/deleteBook">
                             <img src="/public/images/admin/trash.svg" alt="Delete" class="logo">
                         </button>
+
                     </form>
                 </td>
             </tr>
@@ -118,14 +143,29 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin')
         </tr>
         <?php foreach ($type['entities'] as $entity) : ?>
             <tr>
-                <th><?= htmlspecialchars($entity->getId()) ?></th>
-                <th><?= htmlspecialchars($entity->getName()) ?></th>
-                <th><form action="/deleteEntity" method="post">
+                <form action="/editEntity" method="post">
+                    <th><?= htmlspecialchars($entity->getId()) ?></th>
+                    <th>
+                        <input type="hidden" name="id" value="<?= htmlspecialchars($entity->getId()) ?>">
                         <input type="hidden" name="type" value="<?= $action ?>">
-                        <input type="hidden" name="id" value="<?= $entity->getId() ?>">
+                        <input type="text" name="name"
+                               value="<?= htmlspecialchars($entity->getName()) ?>"
+                               required>
+                    </th>
+                    <th>
                         <button type="submit">
+                            <img src="/public/images/admin/save.svg" alt="Save" class="logo">
+                        </button>
+                        <button type="button"
+                                data-delete
+                                data-id="<?= $entity->getId() ?>"
+                                data-type="<?= $action ?>"
+                                data-url="/deleteEntity">
                             <img src="/public/images/admin/trash.svg" alt="Delete" class="logo">
-                    </button></form></th>
+                        </button>
+
+                    </th>
+                </form>
             </tr>
         <?php endforeach; ?>
         <tr>

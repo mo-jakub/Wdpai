@@ -95,10 +95,10 @@ class AdminController extends AppController
     public function editEntity(): void
     {
         $id = $_POST['id'];
-        $name = $_POST['type'];
+        $name = $_POST['name'];
         $type = $_POST['type'];
-        if ($this->{$type . 'Repository'}->editEntity($id, $name))
-        {
+
+        if ($this->{$type . 'Repository'}->editEntity($id, $name)) {
             header('Location: ' . $_SERVER['HTTP_REFERER']);
             return;
         }
@@ -126,5 +126,29 @@ class AdminController extends AppController
             return;
         }
         $this->render('errors/ErrorDB');
+    }
+
+    public function editBook(): void
+    {
+        $bookId = (int)$_POST['id'];
+        $title = $_POST['title'];
+        $description = $_POST['description'];
+        $authors = $_POST['author'] ?? [];
+        $genres = $_POST['genre'] ?? [];
+        $tags = $_POST['tag'] ?? [];
+
+        // Update book details
+        if (!$this->bookRepository->updateBookDetails($bookId, $title, $description)) {
+            $this->render('errors/ErrorDB');
+            return;
+        }
+
+        // Update book relations
+        if (!$this->bookRepository->updateBookRelations($bookId, $authors, $tags, $genres)) {
+            $this->render('errors/ErrorDB');
+            return;
+        }
+
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
 }

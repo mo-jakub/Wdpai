@@ -243,4 +243,81 @@ class BookRepository extends Repository
         $this->database->disconnect();
         return $id;
     }
+
+    public function updateBookRelations(int $bookId, array $authors, array $tags, array $genres): bool
+    {
+        try {
+            $this->database->connect()->beginTransaction();
+
+            // Remove existing authors, tags, and genres
+            $this->removeRelations('book_authors', 'id_author', $bookId);
+            $this->removeRelations('book_tags', 'id_tag', $bookId);
+            $this->removeRelations('book_genres', 'id_genre', $bookId);
+
+            // Insert updated authors
+            foreach ($authors as $authorId) {
+                $stmt = $this->database->connect()->prepare("
+                INSERT INTO public.book_authors (id_book, id_author)
+                VALUES (:bookId, :authorId)
+            ");
+                $stmt->execute(['bookId' => $bookId, 'authorId' => $authorId]);
+            }
+
+            // Insert updated tags
+            foreach ($tags as $tagId) {
+                $stmt = $this->database->connect()->prepare("
+                INSERT INTO public.book_tags (id_book, id_tag)
+                VALUES (:bookId, :tagId)
+            ");
+                $stmt->execute(['bookId' => $bookId, 'tagId' => $tagId]);
+            }
+
+            // Insert updated genres
+            foreach ($genres as $genreId) {
+                $stmt = $this->database->connect()->prepare("
+                INSERT INTO public.book_genres (id_book, id_genre)
+                VALUES (:bookId, :genreId)
+            ");
+                $stmt->execute(['bookId' => $bookId, 'genreId' => $genreId]);
+            }
+
+            $this->database->connect()->commit();
+            return true;
+        } catch (PDOException $e) {
+            $this->database->connect()->rollBack();
+            error_log("Error updating book relations: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    private function removeRelations(string $tableName, string $fieldName, int $bookId): void
+    {
+        $stmt = $this->database->connect()->prepare("
+        DELETE FROM public.{$tableName}
+        WHERE id_book = :bookId
+    ");
+        $stmt->bindParam(':bookId', $bookId, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
+    public function updateBookDetails(int $bookId, string $title, string $description): bool
+    {
+        try {
+            $stmt = $this->database->connect()->prepare("
+            UPDATE public.books
+            SET title = :title, description = :description
+            WHERE id_book = :bookId
+        ");
+            $stmt->bindParam(':title', $title, PDO::PARAM_STR);
+            $stmt->bindParam(':description', $description, PDO::PARAM_STR);
+            $stmt->bindParam(':bookId', $bookId, PDO::PARAM_INT);
+
+            $stmt->execute();
+            return $stmt->rowCount() > 0;
+
+        } catch (PDOException $e) {
+            error_log("Error updating book details: " . $e->getMessage());
+            return false;
+        }
+    }
 }
