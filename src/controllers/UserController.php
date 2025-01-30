@@ -203,6 +203,7 @@ class UserController extends AppController
 
             // Update the username if valid.
             if ($this->userRepository->updateUsername($_SESSION['userId'], $username)) {
+                $_SESSION['username'] = $username; // Set username is session
                 $_SESSION['message'] = 'success';
                 header("Location: /user/{$_SESSION['userId']}?action=changeUsername");
                 return;
