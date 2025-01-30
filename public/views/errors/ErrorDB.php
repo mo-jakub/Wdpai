@@ -15,7 +15,7 @@
         <img src="/public/images/on-page-logo.svg" alt="Logo" class="on-page-logo">
         <h3>
             <p>Error of the DB</p>
-            <p>Could not connect to database or an answer to the query was empty.</p>
+            <p>Could not connect to database, an answer to the query was empty or the query was unsuccessful.</p>
         </h3>
     </div>
 </main>
