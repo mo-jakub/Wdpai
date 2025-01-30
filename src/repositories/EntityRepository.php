@@ -46,7 +46,8 @@ abstract class EntityRepository extends Repository
             SELECT 
                 b.id_book AS id,
                 b.title,
-                b.description
+                b.description,
+                b.cover
             FROM 
                 public.books b
             LEFT JOIN public.{$relationTable} t ON b.id_book = t.id_book
@@ -61,7 +62,8 @@ abstract class EntityRepository extends Repository
             $books[] = [
                 'id' => $row['id'],
                 'title' => $row['title'],
-                'description' => $row['description']
+                'description' => $row['description'],
+                'cover' => $row['cover']
             ];
         }
 
@@ -158,5 +160,4 @@ abstract class EntityRepository extends Repository
             return false;
         }
     }
-
 }

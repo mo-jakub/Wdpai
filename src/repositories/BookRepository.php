@@ -15,6 +15,7 @@ class BookRepository extends Repository
                 b.id_book,
                 b.title,
                 b.description,
+                b.cover,
                 ROW_NUMBER() OVER (PARTITION BY g.id_genre ORDER BY b.id_book ASC) AS row_number
             FROM 
                 public.books b
@@ -30,7 +31,8 @@ class BookRepository extends Repository
                 json_build_object(
                     'id', id_book,
                     'title', title,
-                    'description', description
+                    'description', description,
+                    'cover', cover
                 )
             ) AS books
         FROM 
@@ -83,7 +85,7 @@ class BookRepository extends Repository
     public function getBookById(int $id): ?Book
     {
         $stmt = $this->database->connect()->prepare("
-            SELECT b.id_book AS id, b.title, b.description 
+            SELECT b.id_book AS id, b.title, b.description, b.cover
             FROM public.books b 
             WHERE b.id_book = :id
         ");
@@ -95,7 +97,7 @@ class BookRepository extends Repository
         if (!$book) {
             return null;
         }
-    
+
         $tagsStmt = $this->database->connect()->prepare("
             SELECT t.id_tag, t.tag 
             FROM public.book_tags bt 
@@ -139,7 +141,7 @@ class BookRepository extends Repository
         $commentsStmt->bindParam(':id', $id, PDO::PARAM_INT);
         $commentsStmt->execute();
         $book->setComments($commentsStmt->fetchAll(PDO::FETCH_ASSOC));
-    
+
         $this->database->disconnect();
         return $book;
     }
@@ -147,7 +149,7 @@ class BookRepository extends Repository
     function getAllBookDetails(): ?array
     {
         $stmt = $this->database->connect()->prepare("
-            SELECT id_book AS id, title, description, authors, tags, genres
+            SELECT id_book AS id, title, description, cover, authors, tags, genres
             FROM public.book_details
         ");
         $stmt->execute();
@@ -156,15 +158,16 @@ class BookRepository extends Repository
         return $books;
     }
 
-    public function addBook(string $title, string $description): bool
+    public function addBook(string $title, string $description, ?string $cover): bool
     {
         try {
             $stmt = $this->database->connect()->prepare("
-                INSERT INTO public.books (title, description)
-                VALUES (:title, :description)
-            ");
+            INSERT INTO public.books (title, description, cover)
+            VALUES (:title, :description, :cover)
+        ");
             $stmt->bindParam(':title', $title, PDO::PARAM_STR);
             $stmt->bindParam(':description', $description, PDO::PARAM_STR);
+            $stmt->bindParam(':cover', $cover, PDO::PARAM_STR);
             $stmt->execute();
             $this->database->disconnect();
             return $stmt->rowCount() > 0;
@@ -300,16 +303,17 @@ class BookRepository extends Repository
         $stmt->execute();
     }
 
-    public function updateBookDetails(int $bookId, string $title, string $description): bool
+    public function updateBookDetails(int $bookId, string $title, string $description, ?string $coverPath): bool
     {
         try {
             $stmt = $this->database->connect()->prepare("
             UPDATE public.books
-            SET title = :title, description = :description
+            SET title = :title, description = :description, cover = :coverPath
             WHERE id_book = :bookId
         ");
             $stmt->bindParam(':title', $title, PDO::PARAM_STR);
             $stmt->bindParam(':description', $description, PDO::PARAM_STR);
+            $stmt->bindParam(':coverPath', $coverPath, PDO::PARAM_STR);
             $stmt->bindParam(':bookId', $bookId, PDO::PARAM_INT);
 
             $stmt->execute();
