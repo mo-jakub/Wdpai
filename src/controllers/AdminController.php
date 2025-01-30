@@ -84,25 +84,47 @@ class AdminController extends AppController
     {
         $name = $_POST['name'];
         $type = $_POST['type'];
-        $this->{$type . 'Repository'}->addEntity($name);
-
-        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        if ($this->{$type . 'Repository'}->addEntity($name))
+        {
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+            return;
+        }
+        $this->render('errors/ErrorDB');
     }
 
     public function editEntity(): void
     {
         $id = $_POST['id'];
         $name = $_POST['type'];
-
-        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        $type = $_POST['type'];
+        if ($this->{$type . 'Repository'}->editEntity($id, $name))
+        {
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+            return;
+        }
+        $this->render('errors/ErrorDB');
     }
 
     public function deleteEntity(): void
     {
         $id = $_POST['id'];
         $type = $_POST['type'];
-        $this->{$type . 'Repository'}->deleteEntity($id);
+        if ($this->{$type . 'Repository'}->deleteEntity($id))
+        {
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+            return;
+        }
+        $this->render('errors/ErrorDB');
+    }
 
-        header('Location: ' . $_SERVER['HTTP_REFERER']);
+    public function deleteBook(): void
+    {
+        $id = $_POST['id'];
+        if ($this->bookRepository->deleteBook($id))
+        {
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+            return;
+        }
+        $this->render('errors/ErrorDB');
     }
 }

@@ -69,7 +69,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin')
                     <?php endforeach; ?>
                 </th>
                 <td>
-                    <form action="/deleteBook">
+                    <form action="/deleteBook" method="post">
                         <input type="hidden" name="id" value="<?= htmlspecialchars($book['id']) ?>">
                         <button>
                             <img src="/public/images/admin/trash.svg" alt="Delete" class="logo">

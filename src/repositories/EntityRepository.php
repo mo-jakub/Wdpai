@@ -68,20 +68,36 @@ abstract class EntityRepository extends Repository
         return $books ?: null;
     }
 
-    public function deleteEntity(int $id): bool
+    public function deleteEntity(int $entityId): bool
     {
         try {
-            $stmt = $this->database->connect()->prepare("
-                DELETE FROM public.{$this->tableName}
-                WHERE {$this->entityIdField} = :id
-            ");
-            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-            $stmt->execute();
-            $this->database->disconnect();
+            $relationTable = 'book_' . $this->tableName;
+            $relationIdField = "id_" . $this->entityNameField;
 
-            return $stmt->rowCount() > 0;
+            $this->database->connect()->beginTransaction();
+
+            // Delete relationships between books and the entity (e.g., book_genres, book_tags, book_authors)
+            $relationStmt = $this->database->connect()->prepare("
+                DELETE FROM public.{$relationTable}
+                WHERE {$relationIdField} = :entityId
+            ");
+            $relationStmt->bindParam(':entityId', $entityId, PDO::PARAM_INT);
+            $relationStmt->execute();
+
+            // Delete the entity from the main entity table
+            $entityStmt = $this->database->connect()->prepare("
+                DELETE FROM public.{$this->tableName}
+                WHERE {$this->entityIdField} = :entityId
+            ");
+            $entityStmt->bindParam(':entityId', $entityId, PDO::PARAM_INT);
+            $entityStmt->execute();
+
+            $this->database->connect()->commit();
+            $this->database->disconnect();
+            return true;
         } catch (PDOException $e) {
-            error_log("Error deleting entity with ID {$id}: " . $e->getMessage());
+            $this->database->connect()->rollBack();
+            error_log("Error deleting entity with ID {$entityId} from table {$this->tableName}: " . $e->getMessage());
             return false;
         }
     }

@@ -174,21 +174,57 @@ class BookRepository extends Repository
         }
     }
 
-    public function deleteBook(int $id): bool
+    public function deleteBook(int $bookId): bool
     {
         try {
-            $stmt = $this->database->connect()->prepare("
-            DELETE FROM public.books 
-            WHERE id_book = :id
-        ");
-            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $this->database->connect()->beginTransaction();
 
-            $stmt->execute();
+            // Delete comments referencing the book
+            $commentsStmt = $this->database->connect()->prepare("
+                DELETE FROM public.comments
+                WHERE id_book = :bookId
+            ");
+            $commentsStmt->bindParam(':bookId', $bookId, PDO::PARAM_INT);
+            $commentsStmt->execute();
+
+            // Delete book-author relationships
+            $authorsStmt = $this->database->connect()->prepare("
+                DELETE FROM public.book_authors
+                WHERE id_book = :bookId
+            ");
+            $authorsStmt->bindParam(':bookId', $bookId, PDO::PARAM_INT);
+            $authorsStmt->execute();
+
+            // Delete book-genre relationships
+            $genresStmt = $this->database->connect()->prepare("
+                DELETE FROM public.book_genres
+                WHERE id_book = :bookId
+            ");
+            $genresStmt->bindParam(':bookId', $bookId, PDO::PARAM_INT);
+            $genresStmt->execute();
+
+            // Delete book-tag relationships
+            $tagsStmt = $this->database->connect()->prepare("
+                DELETE FROM public.book_tags
+                WHERE id_book = :bookId
+            ");
+            $tagsStmt->bindParam(':bookId', $bookId, PDO::PARAM_INT);
+            $tagsStmt->execute();
+
+            // Delete the book itself
+            $bookStmt = $this->database->connect()->prepare("
+                DELETE FROM public.books
+                WHERE id_book = :bookId
+            ");
+            $bookStmt->bindParam(':bookId', $bookId, PDO::PARAM_INT);
+            $bookStmt->execute();
+
+            $this->database->connect()->commit();
             $this->database->disconnect();
-
-            return $stmt->rowCount() > 0;
+            return true;
         } catch (PDOException $e) {
-            error_log("Error deleting book with ID {$id}: " . $e->getMessage());
+            $this->database->connect()->rollBack();
+            error_log("Error deleting book with ID {$bookId}: " . $e->getMessage());
             return false;
         }
     }
