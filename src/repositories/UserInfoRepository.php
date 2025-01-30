@@ -21,19 +21,47 @@ class UserInfoRepository extends Repository
         return $userInfo ?: null;
     }
 
-    public function updateUserInfo(int $id, string $name, string $surname, string $summary): void
+    public function updateUserInfo(int $userId, ?string $name, ?string $surname, ?string $summary): bool
     {
-        $stmt = $this->database->connect()->prepare('
-            UPDATE public.user_info
+        try {
+            $stmt = $this->database->connect()->prepare('
+            UPDATE user_info
             SET name = :name, surname = :surname, summary = :summary
-            WHERE id_user = :id
+            WHERE user_id = :user_id
         ');
-        $stmt->bindParam(':name', $name, PDO::PARAM_STR);
-        $stmt->bindParam(':surname', $surname, PDO::PARAM_STR);
-        $stmt->bindParam(':summary', $summary, PDO::PARAM_STR);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        $stmt->execute();
 
-        $this->database->disconnect();
+            $stmt->bindParam(':name', $name);
+            $stmt->bindParam(':surname', $surname);
+            $stmt->bindParam(':summary', $summary);
+            $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+            $stmt->execute();
+            $this->database->disconnect();
+
+            return $stmt->rowCount() > 0;
+        } catch (PDOException $e) {
+            error_log("Error updating user info for userID {$userId} with {$name}, {$surname}: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function addUserInfo(int $userId, ?string $name, ?string $surname, ?string $summary): bool
+    {
+        try {
+            $stmt = $this->database->connect()->prepare('
+                INSERT INTO public.user_info (name, surname, summary, id_user)
+                VALUES (:name, :surname, :summary, :user_id)
+            ');
+            $stmt->bindParam(':name', $name);
+            $stmt->bindParam(':surname', $surname);
+            $stmt->bindParam(':summary', $summary);
+            $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+            $stmt->execute();
+            $this->database->disconnect();
+
+            return $stmt->rowCount() > 0;
+        } catch (PDOException $e) {
+            error_log("Error inserting user info for userID {$userId} with {$name}, {$surname}: " . $e->getMessage());
+            return false;
+        }
     }
 }

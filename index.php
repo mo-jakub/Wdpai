@@ -40,6 +40,11 @@ Router::post('addComment', 'BookController');
 Router::post('deleteComment', 'BookController');
 
 Router::get('user', 'UserController');
+Router::post('updateInfo', 'UserController');
+Router::post('updateEmail', 'UserController');
+Router::post('updatePassword', 'UserController');
+Router::post('updateUsername', 'UserController');
+
 
 Router::get('administration', 'AdminController');
 Router::post('addEntity', 'AdminController');

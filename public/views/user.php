@@ -36,9 +36,12 @@
             <h4>Username: <?= htmlspecialchars($user->getUsername()) ?></h4>
             <h4>Name: <?= htmlspecialchars($userInfo['name'] ?? 'no name given') ?></h4>
             <h4>Surname: <?= htmlspecialchars($userInfo['surname'] ?? 'no surname given') ?></h4>
-            <h4>Summary: <?= htmlspecialchars($userInfo['summary'] ?? 'no summary given') ?></h4>
+            <h4>Profile Summary: <?= htmlspecialchars($userInfo['summary'] ?? 'no summary given') ?></h4>
         </div>
     <div class="container column border">
+        <?php if (isset($_SESSION['message'])): ?>
+            <p><?= htmlspecialchars($_SESSION['message']); unset($_SESSION['message']) ?></p>
+        <?php endif; ?>
 <?php switch ($action): ?>
 <?php case '': ?>
     <?php if (isset($_SESSION['userId']) && $_SESSION['userId'] === $user->getId()): ?>
@@ -85,11 +88,13 @@
     <?php if ($_SESSION['userId'] === $user->getId()): ?>
         <div class="auth-form">
             <h3>Edit Account Information</h3>
-            <form method="post" action="/user/updateInfo">
+            <form method="post" action="/updateInfo">
                 <label for="name">Name:</label>
                 <input type="text" name="name" id="name" value="<?= htmlspecialchars($userInfo['name'] ?? '') ?>">
                 <label for="surname">Surname:</label>
                 <input type="text" name="surname" id="surname" value="<?= htmlspecialchars($userInfo['surname'] ?? '') ?>">
+                <label for="summary">Profile Summary:</label>
+                <input type="text" name="summary" id="summary" value="<?= htmlspecialchars($userInfo['summary'] ?? '') ?>">
                 <button type="submit">Save</button>
             </form>
         </div>
@@ -99,7 +104,7 @@
     <?php if ($_SESSION['userId'] === $user->getId()): ?>
         <div class="auth-form">
             <h3>Change Email</h3>
-            <form method="post" action="/user/updateEmail">
+            <form method="post" action="/updateEmail">
                 <label for="email">New Email:</label>
                 <input type="email" name="email" id="email" value="<?= htmlspecialchars($user->getEmail()) ?>" required>
                 <button type="submit">Update Email</button>
@@ -109,13 +114,14 @@
 <?php break; ?>
 <?php case 'changePassword': ?>
     <?php if ($_SESSION['userId'] === $user->getId()): ?>
+    <script src="/public/scripts/registerValidation.js"></script>
         <div class="auth-form">
             <h3>Change Password</h3>
-            <form method="post" action="/user/updatePassword">
+            <form method="post" action="/updatePassword">
                 <label for="currentPassword">Current Password:</label>
                 <input type="password" name="currentPassword" id="currentPassword" required>
-                <label for="newPassword">New Password:</label>
-                <input type="password" name="newPassword" id="newPassword" required>
+                <label for="password">New Password:</label>
+                <input type="password" name="password" id="password" required>
                 <label for="confirmPassword">Confirm Password:</label>
                 <input type="password" name="confirmPassword" id="confirmPassword" required>
                 <button type="submit">Change Password</button>
@@ -127,7 +133,7 @@
     <?php if ($_SESSION['userId'] === $user->getId()): ?>
         <div class="auth-form">
             <h3>Change Username</h3>
-            <form method="post" action="/user/updateUsername">
+            <form method="post" action="/updateUsername">
                 <label for="username">New Username:</label>
                 <input type="text" name="username" id="username" value="<?= htmlspecialchars($user->getUsername()) ?>" required>
                 <button type="submit">Update Username</button>

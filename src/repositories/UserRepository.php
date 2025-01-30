@@ -68,8 +68,10 @@ class UserRepository extends Repository
     public function usernameExists(string $username): bool
     {
         $stmt = $this->database->connect()->prepare('
-        SELECT 1 FROM public.users WHERE username = :username
-    ');
+            SELECT 1
+            FROM public.users
+            WHERE username = :username
+        ');
         $stmt->bindParam(':username', $username, PDO::PARAM_STR);
         $stmt->execute();
 
@@ -79,8 +81,10 @@ class UserRepository extends Repository
     public function emailExists(string $email): bool
     {
         $stmt = $this->database->connect()->prepare('
-        SELECT 1 FROM public.users WHERE email = :email
-    ');
+            SELECT 1
+            FROM public.users
+            WHERE email = :email
+        ');
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
         $stmt->execute();
 
@@ -99,5 +103,85 @@ class UserRepository extends Repository
 
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         return $user ?: null;
+    }
+
+    public function updateEmail(int $userId, string $email): bool
+    {
+        try {
+            $stmt = $this->database->connect()->prepare('
+                UPDATE public.users
+                SET email = :email
+                WHERE id_user = :id
+            ');
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':id', $userId, PDO::PARAM_INT);
+            $stmt->execute();
+            $this->database->disconnect();
+
+            return $stmt->rowCount() > 0;
+        } catch (PDOException $e) {
+            error_log("Error updating email for userID {$userId} with {$email}: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function updatePassword(int $userId, string $password): bool
+    {
+        try {
+            $stmt = $this->database->connect()->prepare('
+                UPDATE public.users
+                SET hashed_password = :password
+                WHERE id_user = :id
+            ');
+            $stmt->bindParam(':password', $password);
+            $stmt->bindParam(':id', $userId, PDO::PARAM_INT);
+            $stmt->execute();
+            $this->database->disconnect();
+
+            return $stmt->rowCount() > 0;
+        } catch (PDOException $e) {
+            error_log("Error updating password for userID {$userId}: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function verifyPassword(int $userId, string $password): bool
+    {
+        try {
+            $stmt = $this->database->connect()->prepare('
+                SELECT hashed_password
+                FROM public.users
+                WHERE id_user = :id
+            ');
+            $stmt->bindParam(':id', $userId, PDO::PARAM_INT);
+            $stmt->execute();
+            $this->database->disconnect();
+
+            $hashedPassword = $stmt->fetchColumn();
+            return password_verify($password, $hashedPassword);
+        } catch (PDOException $e) {
+            error_log("Error verifying password for userID {$userId}: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function updateUsername(int $userId, string $username): bool
+    {
+        try {
+            $stmt = $this->database->connect()->prepare('
+                UPDATE public.users
+                SET username = :username
+                WHERE id_user = :id
+            ');
+            $stmt->bindParam(':username', $username);
+            $stmt->bindParam(':id', $userId, PDO::PARAM_INT);
+            $stmt->execute();
+            $this->database->disconnect();
+
+            return $stmt->rowCount() > 0;
+        } catch (PDOException $e) {
+            error_log("Error updating username for userID {$userId} with {$username}: " . $e->getMessage());
+            return false;
+        }
     }
 }
