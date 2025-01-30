@@ -193,9 +193,15 @@ class AdminController extends AppController
         $authors = $_POST['author'] ?? [];
         $genres = $_POST['genre'] ?? [];
         $tags = $_POST['tag'] ?? [];
-        $coverPath = null;
 
-        if ($_FILES['cover']['error'] === UPLOAD_ERR_OK) {
+
+        if (isset($_POST['current_cover']) && $_POST['current_cover'] !== '')
+        {
+            $coverPath = $_POST['current_cover'];
+        }
+        elseif ($_FILES['cover']['error'] === UPLOAD_ERR_OK)
+        {
+            $coverPath = null;
             $coverPath = $this->saveCover($_FILES['cover']); // Use the saveCover function
         }
 
