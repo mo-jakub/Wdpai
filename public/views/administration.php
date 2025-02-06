@@ -122,9 +122,9 @@ case '': ?>
                         <?php if (!empty($book['cover'])): ?>
                             <!-- Display the current cover -->
                             <img src="<?= htmlspecialchars($book['cover']) ?>" alt="Current Cover" style="max-width: 100px; max-height: 100px;">
+                            <input type="hidden" name="current_cover" value="<?= htmlspecialchars($book['cover']) ?>">
                         <?php endif; ?>
                         <!-- File input for uploading a new cover -->
-                        <input type="hidden" name="current_cover" value="<?= htmlspecialchars($book['cover']) ?>">
                         <input type="file" name="cover" value="<?= $book['cover'] ?>" accept="image/*">
                     </th>
 

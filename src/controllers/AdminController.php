@@ -194,31 +194,16 @@ class AdminController extends AppController
         $genres = $_POST['genre'] ?? [];
         $tags = $_POST['tag'] ?? [];
 
+        $coverPath = $_POST['current_cover']; // Assign current cover path or null
 
-        if (isset($_POST['current_cover']) && $_POST['current_cover'] !== '')
+        if ($_FILES['cover']['error'] === UPLOAD_ERR_OK) // If given new cover, create a new path
         {
-            $coverPath = $_POST['current_cover'];
-        }
-        elseif ($_FILES['cover']['error'] === UPLOAD_ERR_OK)
-        {
-            $coverPath = null;
-            $coverPath = $this->saveCover($_FILES['cover']); // Use the saveCover function
+            $coverPath = $this->saveCover($_FILES['cover']);
         }
 
-        if (!$coverPath) {
-            // Handle the case where the cover upload failed but still proceed with other updates
-            error_log("Cover upload failed for editing book ID: $bookId");
-        }
-
-        // Update book details
-        if (!$this->bookRepository->updateBookDetails($bookId, $title, $description, $coverPath))
-        {
-            $this->render('errors/ErrorDB');
-            return;
-        }
-
-        // Update book relations
-        if (!$this->bookRepository->updateBookRelations($bookId, $authors, $tags, $genres))
+        // Update book details and relations
+        if (!$this->bookRepository->updateBookDetails($bookId, $title, $description, $coverPath)
+            || !$this->bookRepository->updateBookRelations($bookId, $authors, $tags, $genres))
         {
             $this->render('errors/ErrorDB');
             return;
