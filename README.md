@@ -9,6 +9,7 @@
    - [ERD Diagram](#erd-diagram)
 - [User Management](#user-management)
 - [Security](#security)
+- [Screenshots of the Application](#screenshots-of-the-application)
 
 ## Overview
 **Power of Knowledge** is a web-based application designed to display, organize, and manage books. It provides a user-friendly, responsive interface where users can browse books, search by titles/authors, and filter by genres and tags.
@@ -82,3 +83,45 @@ The application uses a PostgreSQL database for managing book and user data.
 - Sensitive credentials and configurations are stored in a `.env` file.
 - User passwords are hashed and stored securely.
 - Unused or replicated code is minimized to ensure a clean codebase.
+
+## Screenshots of the Application
+### Dashboard
+#### On Desktop
+![dashboard](/public/images/readme/dashboard.png)
+#### On Mobile
+![dashboard](/public/images/readme/dashboard-mobile.png)
+##### 2nd Screenshot
+![dashboard](/public/images/readme/dashboard-mobile-2.png)
+### Book Example Page
+#### On Desktop
+![book](/public/images/readme/book.png)
+#### On Mobile
+![book](/public/images/readme/book-mobile.png)
+##### 2nd Screenshot
+![book](/public/images/readme/book-mobile-2.png)
+### Register Page
+#### On Desktop
+![register](/public/images/readme/register.png)
+#### On Mobile
+![register](/public/images/readme/register-mobile.png)
+### Login Page
+#### On Desktop
+![login](/public/images/readme/login.png)
+#### On Mobile
+![login](/public/images/readme/login-mobile.png)
+### Searching by Genre
+- Tags and Authors pages look similarly
+#### On Desktop
+![genres](/public/images/readme/genres.png)
+![genre](/public/images/readme/genre.png)
+#### On Mobile
+![genres](/public/images/readme/genres-mobile.png)
+![genre](/public/images/readme/genre-mobile.png)
+### User Page
+#### On Desktop
+![user](/public/images/readme/user.png)
+#### On Mobile
+![user](/public/images/readme/user-mobile.png)
+![user](/public/images/readme/user-mobile-2.png)
+### Administration
+![admin](/public/images/readme/admin.png)
